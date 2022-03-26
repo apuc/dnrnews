@@ -11,9 +11,22 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'api' => [
+            'class' => 'frontend\modules\api\Api',
+        ],
+    ],
     'components' => [
+//        'request' => [
+//            'csrfParam' => '_csrf-frontend',
+//        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'baseUrl' => '',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+                'application/xml' => 'yii\web\XmlParser',
+            ],
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -36,14 +49,24 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
+//            'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
+//                [
+//                    'class' => 'yii\rest\UrlRule',
+//                    'controller' => 'user',
+//                    'pluralize' => false,
+//                ],
+                'api/user/<id:\d+>' => 'api/user/index',
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/user',
+                    'pluralize' => false,
+                ]
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
