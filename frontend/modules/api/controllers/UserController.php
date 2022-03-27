@@ -29,8 +29,6 @@ class UserController extends Controller
                 'actions' => [
                     'login' => ['GET'],
                     'create' => ['POST'],
-//                    'update' => ['PUT', 'POST'],
-//                    'delete' => ['POST', 'DELETE'],
                 ],
             ],
         ]);
@@ -71,14 +69,4 @@ class UserController extends Controller
         }
         return $response;
     }
-
-//    public function actionUpdate()
-//    {
-//        return User::findOne(1);
-//    }
-//
-//    public function actionDelete()
-//    {
-//        return User::findOne(1);
-//    }
 }

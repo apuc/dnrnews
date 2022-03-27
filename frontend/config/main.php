@@ -17,9 +17,6 @@ return [
         ],
     ],
     'components' => [
-//        'request' => [
-//            'csrfParam' => '_csrf-frontend',
-//        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
             'baseUrl' => '',
@@ -51,15 +48,8 @@ return [
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
-//            'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-//                [
-//                    'class' => 'yii\rest\UrlRule',
-//                    'controller' => 'user',
-//                    'pluralize' => false,
-//                ],
-//                'api/user/<id:\d+>' => 'api/user/index',
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/user',

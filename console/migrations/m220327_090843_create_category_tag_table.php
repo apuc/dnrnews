@@ -26,7 +26,6 @@ class m220327_090843_create_category_tag_table extends Migration
             'tag_id',
             'tag',
             'id',
-            'RESTRICT',
             'CASCADE'
         );
         $this->addForeignKey(
@@ -35,7 +34,6 @@ class m220327_090843_create_category_tag_table extends Migration
             'category_id',
             'category',
             'id',
-            'RESTRICT',
             'CASCADE'
         );
     }

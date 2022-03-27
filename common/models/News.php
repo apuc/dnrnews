@@ -39,6 +39,7 @@ class News extends \common\models\User
         return [
             [['news_body'], 'string'],
             [['like', 'dislike', 'status', 'created_at', 'updated_at'], 'integer'],
+//            ['like', 'dislike', 'value' => 0],
             [['created_at', 'updated_at'], 'required'],
             [['title', 'photo'], 'string', 'max' => 255],
         ];
