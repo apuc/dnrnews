@@ -2,7 +2,6 @@
 
 namespace frontend\modules\api\controllers;
 
-
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\ContentNegotiator;
@@ -11,23 +10,9 @@ use yii\web\Response;
 
 class ApiController extends Controller
 {
-
     public function behaviors()
     {
         return [
-//            'corsFilter' => [
-//                'class' => GsCors::class,
-//                'cors' => [
-//                    'Origin' => ['*'],
-//                    //'Access-Control-Allow-Credentials' => true,
-//                    'Access-Control-Allow-Headers' => [
-//                        'Content-Type',
-//                        'Access-Control-Allow-Headers',
-//                        'Authorization',
-//                        'X-Requested-With'
-//                    ],
-//                ]
-//            ],
             'authenticator' => [
                 'class' => CompositeAuth::class,
                 'authMethods' => [

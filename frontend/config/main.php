@@ -59,12 +59,13 @@ return [
 //                    'controller' => 'user',
 //                    'pluralize' => false,
 //                ],
-                'api/user/<id:\d+>' => 'api/user/index',
+//                'api/user/<id:\d+>' => 'api/user/index',
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/user',
                     'pluralize' => false,
-                ]
+                ],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'post'],
             ],
         ],
     ],

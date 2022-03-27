@@ -1,10 +1,10 @@
 <?php
 
-namespace frontend\models;
+namespace frontend\modules\api\models;
 
 use Yii;
 use yii\base\Model;
-use common\models\User;
+use frontend\modules\api\models\User;
 
 /**
  * Signup form
@@ -61,7 +61,7 @@ class SignupForm extends Model
         $user->access_token = Yii::$app->security->generateRandomString();
         $user->access_token_expired_at = date('Y-m-d', time() + static::EXPIRE_TIME);
 
-        return $user->save(); // && $this->sendEmail($user);
+        return $user->save(); //&& $this->sendEmail($user)
     }
 
     /**
