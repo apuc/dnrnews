@@ -30,7 +30,7 @@ class CommentController extends Controller
                 'authMethods' => [
                     HttpBearerAuth::class,
                 ],
-                'only' => ['create', 'update'],
+                'only' => ['create', 'delete'],
             ],
             [
                 'class' => ContentNegotiator::class,
@@ -42,6 +42,7 @@ class CommentController extends Controller
                 'class' => \yii\filters\VerbFilter::class,
                 'actions' => [
                     'comment' => ['GET'],
+                    'news-comments' => ['GET'],
                     'create' => ['POST'],
                     'delete' => ['DELETE'],
                 ],
@@ -52,7 +53,21 @@ class CommentController extends Controller
     /**
      * @throws NotFoundHttpException
      */
-    public function actionComment($news_id): array
+    public function actionComment($comment_id): array
+    {
+        $response['isSuccess'] = 200;
+        $response['comment'] = Comment::findOne($comment_id);
+
+        if (empty($response['comment'])) {
+            throw new NotFoundHttpException('The comment not exist!');
+        }
+        return $response;
+    }
+
+    /**
+     * @throws NotFoundHttpException
+     */
+    public function actionNewsComments($news_id): array
     {
         $response['isSuccess'] = 200;
         $response['comment'] = Comment::find()->where(['news_id' => $news_id])->all();
