@@ -84,7 +84,7 @@ class CommentController extends Controller
         $model->user_id = \Yii::$app->user->identity->id;
         if ($model->load(Yii::$app->request->post(), '') && $model->save()) {
             $response['isSuccess'] = 200;
-            $response['message'] = 'Comment is createdl!';
+            $response['message'] = 'Comment is created!';
             $response['comment'] = $model;
         } else {
             $model->getErrors();

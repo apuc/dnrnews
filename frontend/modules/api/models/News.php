@@ -9,13 +9,13 @@ class News extends \common\models\News implements Linkable
 {
     public function fields()
     {
-        return ['id', 'title', 'photo', 'news_body', 'like', 'dislike', ];
+        return ['id', 'title'];
     }
 
     public function extraFields()
     {
         return [
-            'tags', 'comments'
+            'tags', 'comments', 'photo', 'news_body', 'like'
         ];
     }
 
@@ -32,8 +32,10 @@ class News extends \common\models\News implements Linkable
 
     public function getLinks()
     {
+        $string = str_replace('+', ',', Url::to(['news/news', 'expand' =>'tags comments photo news_body like',  'news_id' => $this->id], true));
+
         return [
-            'self' => Url::to(['news/news', 'expand' =>'comments',  'news_id' => $this->id], true),
+            'self' => $string,
         ];
     }
 }

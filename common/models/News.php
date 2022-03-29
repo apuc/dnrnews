@@ -38,7 +38,7 @@ class News extends \common\models\User
     {
         return [
             [['news_body'], 'string'],
-            [['like', 'dislike', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['like', 'status', 'created_at', 'updated_at'], 'integer'],
 //            ['like', 'dislike', 'value' => 0],
             [['created_at', 'updated_at'], 'required'],
             [['title', 'photo'], 'string', 'max' => 255],
@@ -71,6 +71,18 @@ class News extends \common\models\User
     public function getCategoryNews()
     {
         return $this->hasMany(CategoryNews::className(), ['news_id' => 'id']);
+    }
+
+    public function getCategory()
+    {
+        return $this->hasMany(Category::className(), ['id' => 'category_id'])
+            ->via('categoryNews');
+    }
+
+    public function getTags()
+    {
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+            ->via('newsTags');
     }
 
     /**

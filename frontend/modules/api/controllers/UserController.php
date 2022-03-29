@@ -43,6 +43,7 @@ class UserController extends Controller
             $response['message'] = 'Authorization is successful!';
             $response['user'] = User::findByUsername($model->username);
         } else {
+            $response['isSuccess'] = 500;
             $model->getErrors();
             $response['hasErrors'] = $model->hasErrors();
             $response['errors'] = $model->getErrors();
