@@ -2,17 +2,22 @@
 
 namespace frontend\modules\api\models;
 
-use Yii;
-
 class Comment extends \common\models\Comment
 {
     public function fields()
     {
-        return ['id', 'comment_body','like', 'dislike', 'username'];
+        return ['id', 'comment_body', 'username'];
     }
 
     public function extraFields()
     {
-        return [];
+        return [
+            'dislike' => function () {
+                $this->getUserCommentDislikeCount();
+            },
+            'like' => function () {
+                $this->getUserCommentLikeCount();
+            }
+        ];
     }
 }

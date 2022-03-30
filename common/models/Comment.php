@@ -13,8 +13,6 @@ use yii\db\Expression;
  * @property int|null $user_id
  * @property int|null $news_id
  * @property string|null $comment_body
- * @property int|null $like
- * @property int|null $dislike
  * @property int $status
  * @property int $created_at
  * @property int $updated_at
@@ -50,10 +48,9 @@ class Comment extends \common\models\User
     public function rules()
     {
         return [
-            [['user_id', 'news_id', 'like', 'dislike', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['user_id', 'news_id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['user_id', 'news_id', 'comment_body'], 'required'],
             [['comment_body'], 'string', 'max' => 500],
-//            ['like', 'dislike', 'value' => '0'],
             [['news_id'], 'exist', 'skipOnError' => true, 'targetClass' => News::className(), 'targetAttribute' => ['news_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -69,8 +66,6 @@ class Comment extends \common\models\User
             'user_id' => 'User ID',
             'news_id' => 'News ID',
             'comment_body' => 'Comment Body',
-            'like' => 'Like',
-            'dislike' => 'Dislike',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -100,5 +95,25 @@ class Comment extends \common\models\User
     public function getUsername()
     {
         return $this->user->username;
+    }
+
+    public function getUserCommentLike()
+    {
+        return $this->hasMany(UserCommentLike::className(), ['news_id' => 'id']);
+    }
+
+    public function getUserCommentDislike()
+    {
+        return $this->hasMany(UserCommentDislike::className(), ['news_id' => 'id']);
+    }
+
+    public function getUserCommentLikeCount()
+    {
+        return $this->getUserCommentLike()->count();
+    }
+
+    public function getUserCommentDislikeCount()
+    {
+        return $this->getUserCommentDislike()->count();
     }
 }

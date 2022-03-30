@@ -32,6 +32,7 @@ class UserNewsLike extends \yii\db\ActiveRecord
         return [
             [['user_id', 'news_id'], 'integer'],
             [['user_id', 'news_id'], 'required'],
+            ['user_id', 'unique', 'targetAttribute' => ['user_id', 'news_id'], 'message'=>'Лайк уже поставлен'],
             [['news_id'], 'exist', 'skipOnError' => true, 'targetClass' => News::className(), 'targetAttribute' => ['news_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];

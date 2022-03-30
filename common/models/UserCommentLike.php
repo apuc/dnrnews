@@ -31,6 +31,7 @@ class UserCommentLike extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'comment_id'], 'integer'],
+            [['user_id', 'comment_id'], 'required'],
             [['comment_id'], 'exist', 'skipOnError' => true, 'targetClass' => Comment::className(), 'targetAttribute' => ['comment_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];

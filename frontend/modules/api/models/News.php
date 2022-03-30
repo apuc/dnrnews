@@ -15,7 +15,13 @@ class News extends \common\models\News implements Linkable
     public function extraFields()
     {
         return [
-            'tags', 'comments', 'photo', 'news_body', 'like'
+            'tags',
+            'comments',
+            'photo',
+            'news_body',
+            'like' => function () {
+                return $this->getLikesCount();
+            },
         ];
     }
 
@@ -25,14 +31,14 @@ class News extends \common\models\News implements Linkable
             ->via('newsTags');
     }
 
-    public function getComments()
+    public function getComments(): \yii\db\ActiveQuery
     {
         return $this->hasMany(Comment::className(), ['news_id' => 'id']);
     }
 
-    public function getLinks()
+    public function getLinks(): array
     {
-        $string = str_replace('+', ',', Url::to(['news/news', 'expand' =>'tags comments photo news_body like',  'news_id' => $this->id], true));
+        $string = str_replace('+', ',', Url::to(['news/news', 'expand' => 'tags comments photo news_body like', 'news_id' => $this->id], true));
 
         return [
             'self' => $string,

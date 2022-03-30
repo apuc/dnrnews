@@ -2,28 +2,23 @@
 
 namespace frontend\modules\api\controllers;
 
-use frontend\modules\api\models\Category;
 use frontend\modules\api\models\News;
-use frontend\modules\api\models\UserNewsLike;
-use Yii;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\ContentNegotiator;
 use yii\helpers\ArrayHelper;
-use yii\rest\ActiveController;
+use yii\rest\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
-use yii\rest\Controller;
-
 class NewsController extends Controller
 {
-    public $modelClass = 'frontend\modules\api\models\News';//News::class;
+    public $modelClass = 'frontend\modules\api\models\News';
 
-    public $serializer = [
-        'class' => 'yii\rest\Serializer',
-        'collectionEnvelope' => null,
-    ];
+//    public $serializer = [
+//        'class' => 'yii\rest\Serializer',
+//        'collectionEnvelope' => null,
+//    ];
 
     public function behaviors(): array
     {
@@ -98,27 +93,5 @@ class NewsController extends Controller
         $response['news'] = $news;
 
         return $response;
-    }
-
-    public function actionSetLike()
-    {
-//        $model = new UserNewsLike();
-//        $model->user_id = \Yii::$app->user->identity->id;
-//        if ($model->load(Yii::$app->request->post(), '') && $model->save()) {
-//            $response['isSuccess'] = 200;
-//            $response['message'] = 'Like is created!';
-//            $response['user_news_like'] = $model;
-//        } else {
-//            $model->getErrors();
-//            $response['hasErrors'] = $model->hasErrors();
-//            $response['errors'] = $model->errors;
-//            $response['user_news_like'] = $model;
-//        }
-//        return $response;
-    }
-
-    public function actionUnsetLike()
-    {
-
     }
 }

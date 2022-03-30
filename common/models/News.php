@@ -11,8 +11,6 @@ use Yii;
  * @property string|null $title
  * @property string|null $photo
  * @property string|null $news_body
- * @property int|null $like
- * @property int|null $dislike
  * @property int $status
  * @property int $created_at
  * @property int $updated_at
@@ -38,8 +36,7 @@ class News extends \common\models\User
     {
         return [
             [['news_body'], 'string'],
-            [['like', 'status', 'created_at', 'updated_at'], 'integer'],
-//            ['like', 'dislike', 'value' => 0],
+            [['status', 'created_at', 'updated_at'], 'integer'],
             [['created_at', 'updated_at'], 'required'],
             [['title', 'photo'], 'string', 'max' => 255],
         ];
@@ -55,8 +52,6 @@ class News extends \common\models\User
             'title' => 'Title',
             'photo' => 'Photo',
             'news_body' => 'News Body',
-            'like' => 'Like',
-            'dislike' => 'Dislike',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -103,5 +98,15 @@ class News extends \common\models\User
     public function getNewsTags()
     {
         return $this->hasMany(NewsTag::className(), ['news_id' => 'id']);
+    }
+
+    public function getUserNewsLike()
+    {
+        return $this->hasMany(UserNewsLike::className(),['news_id' => 'id']);
+    }
+
+    public function getLikesCount()
+    {
+        return $this->getUserNewsLike()->count();
     }
 }
