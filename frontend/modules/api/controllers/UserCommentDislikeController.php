@@ -34,7 +34,11 @@ class UserCommentDislikeController extends ApiController
             return $response;
         }
 
-        return $userCommentDislikeModel;
+        $response['isSuccess'] = 200;
+        $response['message'] = 'Like is created!';
+        $response['user_news_like'] = $userCommentDislikeModel;
+
+        return $response;
     }
 
     public function actionCommentDeleteDislike($comment_id)

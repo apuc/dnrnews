@@ -33,7 +33,7 @@
 
 `http://dnrone.loc/api/news/news`
 <p>
-    Для получения списка категорий необходимо отправить <b>GET</b> запрос на URL http://dnrone.loc/api/news/news
+    Для получения списка новостей необходимо отправить <b>GET</b> запрос на URL http://dnrone.loc/api/news/news
 </p>
 <p>
     Требуемые параметры:
