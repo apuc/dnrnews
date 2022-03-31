@@ -4,7 +4,6 @@ namespace frontend\modules\api\models;
 
 use Yii;
 use yii\base\Model;
-use frontend\modules\api\models\User;
 
 /**
  * Signup form
@@ -16,7 +15,6 @@ class SignupForm extends Model
     public $password;
 
     const EXPIRE_TIME = 604800; // token expiration time, valid for 7 days
-
 
     /**
      * {@inheritdoc}

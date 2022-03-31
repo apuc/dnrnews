@@ -2,72 +2,99 @@
 
 namespace frontend\modules\api\controllers;
 
-use frontend\modules\api\models\UserNewsLike;
+use common\services\NewsLikeService;
+use common\services\ResponseService;
 use Yii;
+use yii\db\StaleObjectException;
+use yii\filters\auth\CompositeAuth;
+use yii\filters\auth\HttpBearerAuth;
+use yii\helpers\ArrayHelper;
 
 class UserNewsLikeController extends ApiController
 {
     public $modelClass = 'frontend\modules\api\models\UserNewsLike';
 
+    public function behaviors(): array
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            'authenticator' => [
+                'class' => CompositeAuth::class,
+                'authMethods' => [
+                    HttpBearerAuth::class,
+                ],
+            ],
+        ]);
+    }
+
     public function verbs(): array
     {
         return [
             'set-like' => ['POST'],
-            'delete-like' => ['DELETE']
+            'delete-like' => ['DELETE'],
+            'check-news-like' => ['GET'],
         ];
     }
 
-    public function actionSetLike()
+    public function actionSetLike(): array
     {
-        $model = new UserNewsLike();
-        $model->user_id = \Yii::$app->user->identity->id;
+        $newsLike = NewsLikeService::setLike(
+            Yii::$app->request->post('news_id'),
+            Yii::$app->user->identity->id
+        );
 
-        if ($model->load(Yii::$app->request->post(), '') && $model->save()) {
-            $response['isSuccess'] = 200;
-            $response['message'] = 'Like is created!';
-            $response['user_news_like'] = $model;
+        if ($newsLike->hasErrors()) {
+            Yii::$app->response->statusCode = 400;
+            return ResponseService::errorResponse(
+                $newsLike->errors
+            );
         } else {
-            $model->getErrors();
-            $response['hasErrors'] = $model->hasErrors();
-            $response['errors'] = $model->errors;
+            return ResponseService::successResponse(
+                'Like is already created!',
+                $newsLike
+            );
         }
-        return $response;
     }
 
     /**
-     * @throws \yii\db\StaleObjectException
+     * @throws StaleObjectException
      */
-    public function actionDeleteLike($news_id)
+    public function actionDeleteLike($news_id): array
     {
-        $user_id = \Yii::$app->user->identity->id;
+        $userNewsLikeModel = NewsLikeService::deleteLike(
+            $news_id,
+            Yii::$app->user->identity->id
+        );
 
-        $model = UserNewsLike::find()->where(['user_id' => $user_id])->andWhere(['news_id' => $news_id])->one();
-
-        if (!empty($model) && $model->delete()) {
-            $response['isSuccess'] = 200;
-            $response['message'] = 'Like is deleted!';
-            $response['user_news_like'] = $model;
+        if (empty($userNewsLikeModel)) {
+            Yii::$app->response->statusCode = 400;
+            return ResponseService::errorResponse(
+                'Like not found.'
+            );
         } else {
-            $response['Not found error'] = 404;
-            $response['message'] = 'Not found!';
+            return ResponseService::successResponse(
+                'Like is deleted!',
+                $userNewsLikeModel
+            );
         }
-        return $response;
     }
 
-    public function actionCheckNewsLike($news_id)
+    public function actionCheckNewsLike($news_id): array
     {
-        $user_id = \Yii::$app->user->identity->id;
-
-        $model = UserNewsLike::find()->where(['user_id' => $user_id])->andWhere(['news_id' => $news_id])->one();
+        $model = NewsLikeService::findNewsLike(
+            $news_id,
+            Yii::$app->user->identity->id
+        );
 
         if (!empty($model)) {
-            $response['isSuccess'] = 200;
-            $response['message'] = 'Like is already existing!';
-            $response['user_news_like'] = $model;
+            return ResponseService::successResponse(
+                'Like is already existing.',
+                $model
+            );
         } else {
-            $response['Not found error'] = 404;
-            $response['message'] = 'Not found!';
+            Yii::$app->response->statusCode = 404;
+            return ResponseService::errorResponse(
+                'Like not found.'
+            );
         }
-        return $response;
     }
 }

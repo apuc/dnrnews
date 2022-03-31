@@ -2,49 +2,40 @@
 
 namespace frontend\modules\api\controllers;
 
+use common\services\ResponseService;
 use frontend\modules\api\models\Category;
-use yii\filters\ContentNegotiator;
-use yii\helpers\ArrayHelper;
-use yii\rest\Controller;
-use yii\web\NotFoundHttpException;
-use yii\web\Response;
+use Yii;
 
-class CategoryController extends Controller
+class CategoryController extends ApiController
 {
     public $modeClass = Category::class;
 
-    public function behaviors(): array
+    public function verbs(): array
     {
-        return ArrayHelper::merge(parent::behaviors(), [
-            [
-                'class' => ContentNegotiator::class,
-                'formats' => [
-                    'application/json' => Response::FORMAT_JSON,
-                ],
-            ],
-            'verbs' => [
-                'class' => \yii\filters\VerbFilter::class,
-                'actions' => [
-                    'category' => ['GET'],
-                ],
-            ],
-        ]);
+        return [
+            'category' => ['GET'],
+        ];
     }
 
-    /**
-     * @throws NotFoundHttpException
-     */
     public function actionCategory($category_id = null): array
     {
-        $response['isSuccess'] = 200;
         if ($category_id) {
-            $response['category'] = Category::findOne($category_id);
+            $response = ResponseService::successResponse(
+                'One category.',
+                Category::findOne($category_id)
+            );
         } else {
-            $response['category'] = Category::find()->all();
+            $response = ResponseService::successResponse(
+                'Category list.',
+                Category::find()->all()
+            );
         }
 
-        if (empty($response['category'])) {
-            throw new NotFoundHttpException('The categories not exist!');
+        if (empty($response['model'])) {
+            Yii::$app->response->statusCode = 404;
+            $response = ResponseService::errorResponse(
+                'Category not exist!'
+            );
         }
         return $response;
     }

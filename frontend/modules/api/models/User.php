@@ -2,16 +2,20 @@
 
 namespace frontend\modules\api\models;
 
-use Yii;
-
 class User extends \common\models\User
 {
-    public function fields()
+    public function fields(): array
     {
-        return ['id', 'username', 'email', 'access_token', 'access_token_expired_at'];
+        return [
+            'id',
+            'username',
+            'email',
+            'access_token',
+            'access_token_expired_at'
+        ];
     }
 
-    public function extraFields()
+    public function extraFields(): array
     {
         return [];
     }

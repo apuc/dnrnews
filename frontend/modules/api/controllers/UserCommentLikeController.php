@@ -3,12 +3,28 @@
 namespace frontend\modules\api\controllers;
 
 use common\services\CommentLikeDislikeService;
+use common\services\ResponseService;
 use Yii;
-use yii\web\ServerErrorHttpException;
+use yii\db\StaleObjectException;
+use yii\filters\auth\CompositeAuth;
+use yii\filters\auth\HttpBearerAuth;
+use yii\helpers\ArrayHelper;
 
 class UserCommentLikeController extends ApiController
 {
     public $modelClass = 'frontend\modules\api\models\UserCommentLike';
+
+    public function behaviors(): array
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            'authenticator' => [
+                'class' => CompositeAuth::class,
+                'authMethods' => [
+                    HttpBearerAuth::class,
+                ],
+            ],
+        ]);
+    }
 
     public function verbs(): array
     {
@@ -19,9 +35,9 @@ class UserCommentLikeController extends ApiController
     }
 
     /**
-     * @throws ServerErrorHttpException
+     * @throws StaleObjectException
      */
-    public function actionCommentSetLike()
+    public function actionCommentSetLike(): array
     {
         $userCommentLikeModel = CommentLikeDislikeService::commentSetLike(
             Yii::$app->request->getBodyParam('comment_id'),
@@ -29,19 +45,22 @@ class UserCommentLikeController extends ApiController
         );
 
         if ($userCommentLikeModel->hasErrors()) {
-            $response['hasErrors'] = $userCommentLikeModel->hasErrors();
-            $response['errors'] = $userCommentLikeModel->errors;
-            return $response;
+            Yii::$app->response->statusCode = 400;
+            return ResponseService::errorResponse(
+                $userCommentLikeModel->errors
+            );
+        } else {
+            return ResponseService::successResponse(
+                'Like is created!',
+                $userCommentLikeModel
+            );
         }
-
-        $response['isSuccess'] = 200;
-        $response['message'] = 'Like is created!';
-        $response['user_news_like'] = $userCommentLikeModel;
-
-        return $response;
     }
 
-    public function actionCommentDeleteLike($comment_id)
+    /**
+     * @throws StaleObjectException
+     */
+    public function actionCommentDeleteLike($comment_id): array
     {
         $userCommentLikeModel = CommentLikeDislikeService::commentDeleteLike(
             $comment_id,
@@ -49,14 +68,15 @@ class UserCommentLikeController extends ApiController
         );
 
         if (empty($userCommentLikeModel)) {
-            $response['hasErrors'] = true;
-            $response['errors'] = 'Models not found.';
-
+            Yii::$app->response->statusCode = 400;
+            return ResponseService::errorResponse(
+                'Like not found.'
+            );
         } else {
-            $response['isSuccess'] = 200;
-            $response['message'] = 'Like is deleted!';
-            $response['user_news_like'] = $userCommentLikeModel;
+            return ResponseService::successResponse(
+                'Like is deleted!',
+                $userCommentLikeModel
+            );
         }
-        return $response;
     }
 }

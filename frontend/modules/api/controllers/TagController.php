@@ -2,49 +2,40 @@
 
 namespace frontend\modules\api\controllers;
 
+use common\services\ResponseService;
 use frontend\modules\api\models\Tag;
-use yii\filters\ContentNegotiator;
-use yii\helpers\ArrayHelper;
-use yii\rest\Controller;
-use yii\web\NotFoundHttpException;
-use yii\web\Response;
+use Yii;
 
-class TagController extends Controller
+class TagController extends ApiController
 {
     public $modeClass = Tag::class;
 
-    public function behaviors(): array
+    public function verbs(): array
     {
-        return ArrayHelper::merge(parent::behaviors(), [
-            [
-                'class' => ContentNegotiator::class,
-                'formats' => [
-                    'application/json' => Response::FORMAT_JSON,
-                ],
-            ],
-            'verbs' => [
-                'class' => \yii\filters\VerbFilter::class,
-                'actions' => [
-                    'category' => ['GET'],
-                ],
-            ],
-        ]);
+        return [
+            'tag' => ['GET'],
+        ];
     }
 
-    /**
-     * @throws NotFoundHttpException
-     */
     public function actionTag($tag_id = null): array
     {
-        $response['isSuccess'] = 200;
         if ($tag_id) {
-            $response['tag'] = Tag::findOne($tag_id);
+            $response = ResponseService::successResponse(
+                'One tag.',
+                Tag::findOne($tag_id)
+            );
         } else {
-            $response['tag'] = Tag::find()->all();
+            $response = ResponseService::successResponse(
+                'Tag list.',
+                Tag::find()->all()
+            );
         }
 
-        if (empty($response['tag'])) {
-            throw new NotFoundHttpException('The tag not exist!');
+        if (empty($response['model'])) {
+            Yii::$app->response->statusCode = 404;
+            $response = ResponseService::errorResponse(
+                'The tag not exist!'
+            );
         }
         return $response;
     }

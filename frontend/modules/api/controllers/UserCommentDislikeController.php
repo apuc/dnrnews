@@ -3,12 +3,28 @@
 namespace frontend\modules\api\controllers;
 
 use common\services\CommentLikeDislikeService;
+use common\services\ResponseService;
 use Yii;
-use yii\web\ServerErrorHttpException;
+use yii\db\StaleObjectException;
+use yii\filters\auth\CompositeAuth;
+use yii\filters\auth\HttpBearerAuth;
+use yii\helpers\ArrayHelper;
 
 class UserCommentDislikeController extends ApiController
 {
     public $modelClass = 'frontend\modules\api\models\UserCommentDislike';
+
+    public function behaviors(): array
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            'authenticator' => [
+                'class' => CompositeAuth::class,
+                'authMethods' => [
+                    HttpBearerAuth::class,
+                ],
+            ],
+        ]);
+    }
 
     public function verbs(): array
     {
@@ -19,9 +35,9 @@ class UserCommentDislikeController extends ApiController
     }
 
     /**
-     * @throws ServerErrorHttpException
+     * @throws StaleObjectException
      */
-    public function actionCommentSetDislike()
+    public function actionCommentSetDislike(): array
     {
         $userCommentDislikeModel = CommentLikeDislikeService::commentSetDislike(
             Yii::$app->request->getBodyParam('comment_id'),
@@ -29,19 +45,22 @@ class UserCommentDislikeController extends ApiController
         );
 
         if ($userCommentDislikeModel->hasErrors()) {
-            $response['hasErrors'] = $userCommentDislikeModel->hasErrors();
-            $response['errors'] = $userCommentDislikeModel->errors;
-            return $response;
+            Yii::$app->response->statusCode = 404;
+            return ResponseService::errorResponse(
+                $userCommentDislikeModel->errors
+            );
         }
 
-        $response['isSuccess'] = 200;
-        $response['message'] = 'Like is created!';
-        $response['user_news_like'] = $userCommentDislikeModel;
-
-        return $response;
+        return ResponseService::successResponse(
+            'Dislike is created!',
+            $userCommentDislikeModel
+        );
     }
 
-    public function actionCommentDeleteDislike($comment_id)
+    /**
+     * @throws StaleObjectException
+     */
+    public function actionCommentDeleteDislike($comment_id): array
     {
         $userCommentDislikeModel = CommentLikeDislikeService::commentDeleteDislike(
             $comment_id,
@@ -49,14 +68,15 @@ class UserCommentDislikeController extends ApiController
         );
 
         if (empty($userCommentDislikeModel)) {
-            $response['hasErrors'] = true;
-            $response['errors'] = 'Models not found.';
-
+            Yii::$app->response->statusCode = 404;
+            return ResponseService::errorResponse(
+                'Dislike not found.'
+            );
         } else {
-            $response['isSuccess'] = 200;
-            $response['message'] = 'Like is deleted!';
-            $response['user_news_like'] = $userCommentDislikeModel;
+            return ResponseService::successResponse(
+                'Dislike is deleted!',
+                $userCommentDislikeModel
+            );
         }
-        return $response;
     }
 }

@@ -2,71 +2,56 @@
 
 namespace frontend\modules\api\controllers;
 
+use common\services\ResponseService;
 use frontend\modules\api\models\LoginForm;
 use frontend\modules\api\models\SignupForm;
 use frontend\modules\api\models\User;
 use Yii;
-use yii\filters\ContentNegotiator;
-use yii\helpers\ArrayHelper;
-use yii\rest\Controller;
-use yii\web\Response;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
     public $modeClass = User::class;
 
-    public function behaviors(): array
+    public function verbs(): array
     {
-        return ArrayHelper::merge(parent::behaviors(), [
-            [
-                'class' => ContentNegotiator::class,
-                'formats' => [
-                    'application/json' => Response::FORMAT_JSON,
-                ],
-            ],
-            'verbs' => [
-                'class' => \yii\filters\VerbFilter::class,
-                'actions' => [
-                    'login' => ['GET'],
-                    'create' => ['POST'],
-                ],
-            ],
-        ]);
+        return [
+            'login' => ['GET'],
+            'create' => ['POST'],
+        ];
     }
 
-
-    public function actionLogin(): array
+    public function actionLogin($username, $password): array
     {
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->get(), '') && $model->login()) {
-            $response['isSuccess'] = 200;
-            $response['message'] = 'Authorization is successful!';
-            $response['user'] = User::findByUsername($model->username);
+        $loginFormModel = new LoginForm();
+        if ($loginFormModel->load(Yii::$app->request->get(), '') && $loginFormModel->login()) {
+             $response = ResponseService::successResponse(
+                'Authorization is successful!',
+                User::findByUsername($loginFormModel->username)
+            );
         } else {
-            $response['isSuccess'] = 500;
-            $model->getErrors();
-            $response['hasErrors'] = $model->hasErrors();
-            $response['errors'] = $model->getErrors();
+            Yii::$app->response->statusCode = 400;
+            $response = ResponseService::errorResponse(
+                $loginFormModel->getErrors()
+            );
         }
         return $response;
     }
 
     public function actionCreate(): array
     {
-        $model = new SignupForm();
-        $params = Yii::$app->request->post();
-        $model->username = $params['username'];
-        $model->password = $params['password'];
-        $model->email = $params['email'];
+        $signupFormModel = new SignupForm();
+        $signupFormModel->attributes = Yii::$app->request->post();
 
-        if ($model->signup()) {
-            $response['isSuccess'] = 201;
-            $response['message'] = 'You are now a member!';
-            $response['user'] = User::findByUsername($model->username);
+        if ($signupFormModel->signup()) {
+            $response = ResponseService::successResponse(
+                'You are now a member!',
+                User::findByUsername($signupFormModel->username)
+            );
         } else {
-            $model->getErrors();
-            $response['hasErrors'] = $model->hasErrors();
-            $response['errors'] = $model->getErrors();
+            Yii::$app->response->statusCode = 400;
+            $response = ResponseService::errorResponse(
+                $signupFormModel->getErrors()
+            );
         }
         return $response;
     }
