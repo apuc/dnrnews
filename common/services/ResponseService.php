@@ -8,7 +8,7 @@ class ResponseService
     {
         return array(
             'message' => $message,
-            'model' => $model
+            'data' => $model
         );
     }
 

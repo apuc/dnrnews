@@ -36,7 +36,7 @@
     Для регистрации нового пользователя необходимо отправить <b>POST</b> запрос на URL http://dnrone.loc/api/user/create
 </p>
 <p>
-    Возможные параметры:
+    Требуемые параметры параметры:
 </p>
 <table>
     <tr>
@@ -85,19 +85,18 @@
 
 ```json5
 {
-  "isSuccess": 201,
   "message": "You are now a member!",
-  "user": {
-    "id": 22,
-    "username": "popo1",
-    "email": "tetfffd1v@mfdf.com",
-    "access_token": "iqP32bwyBSJugVTa5xL0DIphPS6swlwL",
-    "access_token_expired_at": "2022-04-04 00:00:00"
+  "data": {
+    "id": 27,
+    "username": "refUserjj",
+    "email": "refUserjj@mfdf.com",
+    "access_token": "EoGbCuRMSXx57koj_5MpHDwUSoH2eKSD",
+    "access_token_expired_at": "2022-04-08 00:00:00"
   }
 }
 ```
 
-###Авторизация
+### Авторизация
 
 `http://dnrone.loc/api/user/login`
 
@@ -150,14 +149,13 @@
 
 ```json5
 {
-  "isSuccess": 200,
   "message": "Authorization is successful!",
-  "user": {
-    "id": 21,
-    "username": "popo",
-    "email": "tetfffdv@mfdf.com",
-    "access_token": "HcxB8_XEkPevr-B3i-rb5Y1uxGawgCI7",
-    "access_token_expired_at": "2022-04-04 00:00:00"
+  "data": {
+    "id": 27,
+    "username": "refUserjj",
+    "email": "refUserjj@mfdf.com",
+    "access_token": "ubhFvO092ry9d-ZC3w9E55wpYFVDK3cz",
+    "access_token_expired_at": "2022-04-08 00:00:00"
   }
 }
 ```

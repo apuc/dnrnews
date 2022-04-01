@@ -26,7 +26,7 @@ class NewsController extends ApiController
             News::findOne($news_id)
         );
 
-        if (empty($response['model'])) {
+        if (empty($response['data'])) {
             Yii::$app->response->statusCode = 404;
             $response = ResponseService::errorResponse(
                 'The news not exist!'
@@ -42,7 +42,7 @@ class NewsController extends ApiController
             NewsService::getNews($category_id, $tags_id)
         );
 
-        if (empty($response['model'])) {
+        if (empty($response['data'])) {
             Yii::$app->response->statusCode = 404;
             $response = ResponseService::errorResponse(
                 'The news not exist!'

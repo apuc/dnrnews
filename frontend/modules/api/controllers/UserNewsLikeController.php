@@ -49,7 +49,7 @@ class UserNewsLikeController extends ApiController
             );
         } else {
             return ResponseService::successResponse(
-                'Like is already created!',
+                'Like was created!',
                 $newsLike
             );
         }

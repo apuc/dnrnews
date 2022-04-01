@@ -33,7 +33,7 @@
     </tr>
 </table>
 
-### Поствать новости лайк
+### Поствать комметнтариюлайк
 
 `http://dnrone.loc/api/user-comment-like/comment-set-like`
 <p>
@@ -72,10 +72,9 @@
 
 ```json5
 {
-  "isSuccess": 200,
   "message": "Like is created!",
-  "user_news_like": {
-    "id": 8,
+  "data": {
+    "id": 19,
     "user_id": 21,
     "comment_id": 1
   }
@@ -121,10 +120,9 @@
 
 ```json5
 {
-  "isSuccess": 200,
   "message": "Like is deleted!",
-  "user_news_like": {
-    "id": 8,
+  "data": {
+    "id": 19,
     "user_id": 21,
     "comment_id": 1
   }

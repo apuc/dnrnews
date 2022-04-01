@@ -33,10 +33,10 @@
 
 `http://dnrone.loc/api/news/news`
 <p>
-    Для получения списка новостей необходимо отправить <b>GET</b> запрос на URL http://dnrone.loc/api/news/news
+    Для получения новости необходимо отправить <b>GET</b> запрос на URL http://dnrone.loc/api/news/news
 </p>
 <p>
-    Требуемые параметры:
+    Параметры параметры:
 </p>
 <table>
     <tr>
@@ -46,22 +46,31 @@
         <th>
             Значение
         </th>
+        <th>
+            Обязателен
+        </th>
     </tr>
     <tr>
         <td>
             news_id
         </td>
         <td>
-            При передачи id новости будет возвращено значение одной новости
+            Id новости
+        </td>
+        <td>
+            Да
         </td>
     </tr>
     <tr>
         <td>
-            expand=tags, comments, photo, news_body, like
+            expand=tags, comments, news_body, like, photo
         </td>
         <td>
-             Добавляет к данным: категории; данные закреплённых за ней тегов; коментарии; 
+             Добавляет к данным: категорий; данные закреплённых за ней тегов; коментариев; 
             тело новости; лайки; ссылку на фото новости
+        </td>
+        <td>
+            Нет
         </td>
     </tr>
 </table>
@@ -77,8 +86,8 @@
 
 ```json5
 {
-  "isSuccess": 200,
-  "news": {
+  "message": "News list.",
+  "data": {
     "id": 1,
     "title": "fdgdrgbfd",
     "tags": [
@@ -95,22 +104,18 @@
       {
         "id": 1,
         "comment_body": "fkjnvjdkfnvjkfcv",
-        "like": 0,
-        "dislike": 0,
         "username": "test"
       },
-      '...',
+      "...",
       {
-        "id": 21,
+        "id": 20,
         "comment_body": "jbjdhfbvjhfbvfcfvffvf",
-        "like": 0,
-        "dislike": 0,
         "username": "popo"
       }
     ],
     "photo": "pppp11111",
     "news_body": "11111111111111",
-    "like": 0,
+    "like": "0",
     "_links": {
       "self": {
         "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=1"
@@ -151,15 +156,7 @@
             tag_id[] (массив)
         </td>
         <td>
-            При указании массива id тегов, возвращает список категорий с задаными тегами
-        </td>
-    </tr>
-    <tr>
-        <td>
-            expand=comments,tags
-        </td>
-        <td>
-             Добавляет к данным категории данные закреплённых за ней тегов и коментариев
+            При указании массива id тегов, возвращает список новостей с задаными тегами
         </td>
     </tr>
     <tr>
@@ -184,11 +181,12 @@
 
 ```json5
 {
-  "isSuccess": 200,
-  "news": [
+  "message": "News list.",
+  "data": [
     {
       "id": 1,
       "title": "fdgdrgbfd",
+      "photo": "pppp11111",
       "_links": {
         "self": {
           "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=1"
@@ -196,8 +194,19 @@
       }
     },
     {
+      "id": 2,
+      "title": "dfgvfdbf",
+      "photo": "ppppp22222222",
+      "_links": {
+        "self": {
+          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=2"
+        }
+      }
+    },
+    {
       "id": 3,
       "title": "fdgdfg",
+      "photo": "pppppp33333333",
       "_links": {
         "self": {
           "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=3"

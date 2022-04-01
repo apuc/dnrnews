@@ -31,6 +31,14 @@
             Удалить лайк у новости
         </td>
     </tr>
+    <tr>
+        <td>
+            api/user-news-like/check-news-like
+        </td>
+        <td>
+            Проверка выставления лайка данным пользователем
+        </td>
+    </tr>
 </table>
 
 ### Поствать новости лайк
@@ -72,21 +80,20 @@
 
 ```json5
 {
-  "isSuccess": 200,
-  "message": "Like is created!",
-  "user_news_like": {
+  "message": "Like was created!",
+  "data": {
+    "news_id": "10",
     "user_id": 21,
-    "news_id": "1",
-    "id": 13
+    "id": 16
   }
 }
 ```
 
-### Получение списка новостей
+### Удаление лайка у новостей
 
 `http://dnrone.loc/api/user-news-like/delete-like`
 <p>
-    Для получения списка новостей необходимо отправить <b>DELETE</b> запрос на URL http://dnrone.loc/api/user-news-like/delete-like
+    Для удаления лайка новости необходимо отправить <b>DELETE</b> запрос на URL http://dnrone.loc/api/user-news-like/delete-like
 </p>
 <p>
     Требуемые параметры:
@@ -121,10 +128,57 @@
 
 ```json5
 {
-  "isSuccess": 200,
   "message": "Like is deleted!",
-  "user_news_like": {
-    "id": 13,
+  "data": {
+    "id": 16,
+    "user_id": 21,
+    "news_id": 10
+  }
+}
+```
+
+### Проверка выставления лайка данным пользователем
+
+`http://dnrone.loc/api/user-news-like/check-news-like`
+<p>
+    Для выполнения проверки необходимо отправить <b>GET</b> запрос на URL http://dnrone.loc/api/user-news-like/check-news-like
+</p>
+<p>
+    Требуемые параметры:
+</p>
+<table>
+    <tr>
+        <th>
+            Параметры
+        </th>
+        <th>
+            Значение
+        </th>
+    </tr>
+    <tr>
+        <td>
+            news_id
+        </td>
+        <td>
+            Id новости
+        </td>
+    </tr>
+</table>
+<p>
+    Пример запроса:
+</p>
+
+`http://dnrone.loc/api/user-news-like/check-news-like?news_id=1`
+
+<p>
+    Пример возвращаемых данных
+</p>
+
+```json5
+{
+  "message": "Like is already existing.",
+  "data": {
+    "id": 17,
     "user_id": 21,
     "news_id": 1
   }

@@ -31,7 +31,7 @@ class CategoryController extends ApiController
             );
         }
 
-        if (empty($response['model'])) {
+        if (empty($response['data'])) {
             Yii::$app->response->statusCode = 404;
             $response = ResponseService::errorResponse(
                 'Category not exist!'

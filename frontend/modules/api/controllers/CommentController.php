@@ -43,7 +43,7 @@ class CommentController extends ApiController
             Comment::findOne($comment_id)
         );
 
-        if (empty($response['model'])) {
+        if (empty($response['data'])) {
             Yii::$app->response->statusCode = 404;
             $response = ResponseService::errorResponse(
                 'The comment not exist!'
@@ -59,7 +59,7 @@ class CommentController extends ApiController
             Comment::find()->where(['news_id' => $news_id])->all()
         );
 
-        if (empty($response['model'])) {
+        if (empty($response['data'])) {
             Yii::$app->response->statusCode = 404;
             $response = ResponseService::errorResponse(
                 'The comment not exist!'

@@ -34,6 +34,14 @@
             Создать коментарий (требует токен доступа)
         </td>
     </tr>
+    <tr>
+        <td>
+            api/comment/delete
+        </td>
+        <td>
+            Удалить коментарий (требует токен доступа)
+        </td>
+    </tr>
 </table>
 
 ### Получение коментария
@@ -75,12 +83,10 @@
 
 ```json5
 {
-  "isSuccess": 200,
-  "comment": {
+  "message": "One comment.",
+  "data": {
     "id": 1,
     "comment_body": "fkjnvjdkfnvjkfcv",
-    "like": 0,
-    "dislike": 0,
     "username": "test"
   }
 }
@@ -125,22 +131,23 @@
 
 ```json5
 {
-  "isSuccess": 200,
-  "comment": [
+  "message": "Comment list for news.",
+  "data": [
     {
       "id": 1,
       "comment_body": "fkjnvjdkfnvjkfcv",
-      "like": 0,
-      "dislike": 0,
-      "username": "test" // имя создателя коментария
+      "username": "test"
     },
-'...',
     {
-      "id": 9,
+      "id": 4,
+      "comment_body": "fkjnvjdkfnvjkfcv",
+      "username": "test"
+    },
+    '...',
+    {
+      "id": 25,
       "comment_body": "jbjdhfbvjhfbvfcfvffvf",
-      "like": null,
-      "dislike": null,
-      "username": "popo" // имя создателя коментария
+      "username": "popo"
     }
   ]
 }
@@ -193,13 +200,58 @@
 
 ```json5
 {
-  "isSuccess": 200,
-  "message": "Comment is createdl!",
-  "comment": {
-    "id": 11,
+  "message": "Comment is created!",
+  "data": {
+    "id": 26,
     "comment_body": "jbjdhfbvjhfbvfcfvffvf",
-    "like": null,
-    "dislike": null,
+    "username": "popo"
+  }
+}
+```
+
+### Удаление коментария
+
+`http://dnrone.loc/api/comment/delete`
+<p>
+    Требуется токен доступа. <br>Для удаления коментария необходимо отправить <b>DELETE</b> запрос на URL http://dnrone.loc/api/comment/delete
+</p>
+<p>
+    Требуемые параметры:
+</p>
+<table>
+    <tr>
+        <th>
+            Параметры
+        </th>
+        <th>
+            Значение
+        </th>
+    </tr>
+    <tr>
+        <td>
+            comment_id
+        </td>
+        <td>
+            id коментария
+        </td>
+    </tr>
+</table>
+<p>
+    Пример запроса:
+</p>
+
+`http://dnrone.loc/api/comment/delete?comment_id=26`
+
+<p>
+    Пример возвращаемых данных
+</p>
+
+```json5
+{
+  "message": "Comment was deleted!",
+  "data": {
+    "id": 26,
+    "comment_body": "jbjdhfbvjhfbvfcfvffvf",
     "username": "popo"
   }
 }

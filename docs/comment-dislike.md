@@ -35,9 +35,9 @@
 
 ### Поствать комментарию дислайк
 
-`http://dnrone.loc/api/user-comment-dislike/comment-delete-dislike`
+`http://dnrone.loc/user-comment-dislike/comment-set-dislike`
 <p>
-    Для добавления комментарию лайка необходимо отправить <b>POST</b> запрос на URL http://dnrone.loc/api/user-comment-dislike/comment-delete-dislike
+    Для добавления комментарию лайка необходимо отправить <b>POST</b> запрос на URL http://dnrone.loc/api/user-comment-dislike/comment-set-dislike
 </p>
 <p>
     Требуемые параметры:
@@ -72,12 +72,11 @@
 
 ```json5
 {
-  "isSuccess": 200,
-  "message": "Like is created!",
-  "user_news_like": {
-    "id": 5,
+  "message": "Dislike is created!",
+  "data": {
+    "comment_id": "1",
     "user_id": 21,
-    "comment_id": 1
+    "id": 16
   }
 }
 ```
@@ -121,10 +120,9 @@
 
 ```json5
 {
-  "isSuccess": 200,
-  "message": "Like is deleted!",
-  "user_news_like": {
-    "id": 5,
+  "message": "Dislike is deleted!",
+  "data": {
+    "id": 17,
     "user_id": 21,
     "comment_id": 1
   }
