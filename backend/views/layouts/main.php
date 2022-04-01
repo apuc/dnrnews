@@ -1,80 +1,69 @@
 <?php
 
-/** @var \yii\web\View $this */
-/** @var string $content */
+use yii\helpers\Html;
+use andrewdanilov\adminpanel\assets\AdminPanelAsset;
 
-use backend\assets\AppAsset;
-use common\widgets\Alert;
-use yii\bootstrap4\Breadcrumbs;
-use yii\bootstrap4\Html;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
+/* @var $this \yii\web\View */
+/* @var $content string */
 
-AppAsset::register($this);
+AdminPanelAsset::register($this);
+
+if (isset(Yii::$app->params['siteName'])) {
+	$siteName = Yii::$app->params['siteName'];
+} else {
+	$siteName = 'AdminPanel';
+}
+if (isset(Yii::$app->user->identity['username'])) {
+	$userName = Yii::$app->user->identity['username'];
+} else {
+	$userName = 'Guest';
+}
+$directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/andrewdanilov/yii2-admin-panel/src');
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>" class="h-100">
+<html lang="<?= Yii::$app->language ?>">
 <head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <?php $this->registerCsrfMetaTags() ?>
+    <meta charset="<?= Yii::$app->charset ?>"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="d-flex flex-column h-100">
+<body>
 <?php $this->beginBody() ?>
 
-<header>
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
-</header>
+<div class="page-wrapper">
 
-<main role="main" class="flex-shrink-0">
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
-</main>
+	<?= $this->render(
+		'_blocks/left',
+		['directoryAsset' => $directoryAsset, 'siteName' => $siteName]
+	) ?>
 
-<footer class="footer mt-auto py-3 text-muted">
-    <div class="container">
-        <p class="float-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-        <p class="float-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
+	<div class="page-main">
+
+		<?= $this->render(
+			'_blocks/top',
+			['directoryAsset' => $directoryAsset, 'userName' => $userName]
+		) ?>
+
+		<?= $this->render(
+			'_blocks/content',
+			['directoryAsset' => $directoryAsset, 'content' => $content]
+		) ?>
+
+		<?= $this->render(
+			'_blocks/footer',
+			['directoryAsset' => $directoryAsset]
+		) ?>
+
+	</div>
+
+</div>
 
 <?php $this->endBody() ?>
 </body>
 </html>
-<?php $this->endPage();
+<?php $this->endPage() ?>
+

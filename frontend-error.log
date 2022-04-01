@@ -1,1 +1,13 @@
 2022/03/27 18:52:38 [error] 833#833: *263 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Cannot use yii\helpers\Url as Url because the name is already in use in /var/www/dnrone/frontend/modules/api/models/News.php on line 9" while reading response header from upstream, client: 127.0.0.1, server: dnrone.loc, request: "GET /api/news/news?news_id=1 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php-fpm.sock:", host: "dnrone.loc"
+2022/04/01 13:58:34 [error] 850#850: *77 FastCGI sent in stderr: "PHP message: An Error occurred while handling another error:
+PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'is_admin' in 'where clause' in /var/www/dnrone/vendor/yiisoft/yii2/db/Command.php:1302
+Stack trace:
+#0 /var/www/dnrone/vendor/yiisoft/yii2/db/Command.php(1302): PDOStatement->execute()
+#1 /var/www/dnrone/vendor/yiisoft/yii2/db/Command.php(1168): yii\db\Command->internalExecute()
+#2 /var/www/dnrone/vendor/yiisoft/yii2/db/Command.php(436): yii\db\Command->queryInternal()
+#3 /var/www/dnrone/vendor/yiisoft/yii2/db/Query.php(446): yii\db\Command->queryScalar()
+#4 /var/www/dnrone/vendor/andrewdanilov/yii2-admin-panel/src/AccessChecker.php(26): yii\db\Query->exists()
+#5 /var/www/dnrone/vendor/yiisoft/yii2/web/User.php(758): andrewdanilov\adminpanel\AccessChecker->checkAccess()
+#6 /var/www/dnrone/vendor/yiisoft/yii2/filters/AccessRule.php(248): yii\web\User->can()
+#7 /var/www/dnrone/vendor/yiisoft/yii2/filters/AccessRule.php(173): yii\filters\AccessRule->matchRole()
+#8 /var/ww" while reading upstream, client: 127.0.0.1, server: backend.dnrone.loc, request: "GET /admin/ HTTP/1.1", upstream: "fastcgi://unix:/run/php/php-fpm.sock:", host: "backend.dnrone.loc"
