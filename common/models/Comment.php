@@ -20,7 +20,7 @@ use yii\db\Expression;
  * @property News $news
  * @property User $user
  */
-class Comment extends \common\models\User
+class Comment extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}

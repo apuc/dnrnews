@@ -49,6 +49,7 @@ class m220327_091020_create_comment_table extends Migration
     public function safeDown()
     {
         $this->dropForeignKey('comment_user', 'comment');
+        $this->dropForeignKey('comment_news', 'comment');
         $this->dropTable('{{%comment}}');
     }
 }

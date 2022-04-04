@@ -17,7 +17,7 @@ use Yii;
  * @property Category $category
  * @property News $news
  */
-class CategoryNews extends \common\models\User
+class CategoryNews extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}

@@ -17,7 +17,7 @@ use Yii;
  * @property Category $category
  * @property Tag $tag
  */
-class CategoryTag extends \common\models\User
+class CategoryTag extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}

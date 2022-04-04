@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "category".
@@ -16,7 +17,7 @@ use Yii;
  * @property CategoryNews[] $categoryNews
  * @property CategoryTag[] $categoryTags
  */
-class Category extends \common\models\User
+class Category extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -26,6 +27,18 @@ class Category extends \common\models\User
         return 'category';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => time(),
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -33,7 +46,7 @@ class Category extends \common\models\User
     {
         return [
             [['status', 'created_at', 'updated_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
+//            [['created_at', 'updated_at'], 'required'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -45,8 +58,8 @@ class Category extends \common\models\User
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'status' => 'Status',
+            'title' => 'Название',
+            'status' => 'Статус',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

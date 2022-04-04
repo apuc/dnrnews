@@ -2,7 +2,8 @@
 
 namespace common\models;
 
-use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "news".
@@ -19,14 +20,28 @@ use Yii;
  * @property Comment[] $comments
  * @property NewsTag[] $newsTags
  */
-class News extends \common\models\User
+class News extends \yii\db\ActiveRecord
 {
+    public $imageFile;
+
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
         return 'news';
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => time(),
+            ],
+        ];
     }
 
     /**
@@ -37,9 +52,20 @@ class News extends \common\models\User
         return [
             [['news_body'], 'string'],
             [['status', 'created_at', 'updated_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
-            [['title', 'photo'], 'string', 'max' => 255],
+//            [['created_at', 'updated_at'], 'required'],
+            [['title'], 'string', 'max' => 255],
+            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
         ];
+    }
+
+    public function upload()
+    {
+        if ($this->validate()) {
+            $this->imageFile->saveAs('uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -49,10 +75,10 @@ class News extends \common\models\User
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'photo' => 'Photo',
-            'news_body' => 'News Body',
-            'status' => 'Status',
+            'title' => 'Заголовок',
+            'photo' => 'Фото',
+            'news_body' => 'Текст новости',
+            'status' => 'Статус',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -102,7 +128,7 @@ class News extends \common\models\User
 
     public function getUserNewsLike()
     {
-        return $this->hasMany(UserNewsLike::className(),['news_id' => 'id']);
+        return $this->hasMany(UserNewsLike::className(), ['news_id' => 'id']);
     }
 
     public function getLikesCount()

@@ -11,13 +11,12 @@ use andrewdanilov\adminpanel\widgets\Menu;
 <div class="page-left">
 	<div class="sidebar-heading"><?= $siteName ?></div>
 	<?= Menu::widget(['items' => [
-		['label' => 'Dashboard', 'url' => ['/site/index'], 'icon' => 'desktop'],
-		[],
-		['label' => 'Blog'],
-		['label' => 'News', 'url' => ['/news/index'], 'icon' => ['symbol' => 'newspaper', 'type' => 'regular']],
-		['label' => 'Articles', 'url' => ['/articles/index'], 'icon' => ['symbol' => 'newspaper', 'type' => 'solid']],
-		[],
 		['label' => 'System'],
 		['label' => 'Users', 'url' => ['/user/index'], 'icon' => 'users'],
+        [],
+		['label' => 'News', 'url' => ['/news/news'], 'icon' => 'newspaper'],
+        ['label' => 'Category', 'url' => ['/category/category'], 'icon' => 'list'],
+		['label' => 'Tags', 'url' => ['/tag/tag'], 'icon' => 'comment'],
+		['label' => 'Comment', 'url' => ['/comment/comment'], 'icon' => 'comments'],
 	]]) ?>
 </div>

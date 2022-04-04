@@ -17,7 +17,7 @@ use Yii;
  * @property News $news
  * @property Tag $tag
  */
-class NewsTag extends \common\models\User
+class NewsTag extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
