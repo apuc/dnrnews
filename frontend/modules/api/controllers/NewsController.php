@@ -22,7 +22,7 @@ class NewsController extends ApiController
     public function actionNews($news_id): array
     {
         $response = ResponseService::successResponse(
-            'News list.',
+            'News',
             News::findOne($news_id)
         );
 
@@ -35,10 +35,10 @@ class NewsController extends ApiController
         return $response;
     }
 
-    public function actionNewsList($category_id = null, array $tags_id = null): array
+    public function actionNewsList(array $category_id = null, array $tags_id = null): array
     {
         $response = ResponseService::successResponse(
-            'News list.',
+            'News list',
             NewsService::getNews($category_id, $tags_id)
         );
 

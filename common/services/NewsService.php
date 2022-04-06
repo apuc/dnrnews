@@ -6,7 +6,7 @@ use frontend\modules\api\models\News;
 
 class NewsService
 {
-    public static function getNews($category_id = null, array $tags_id = null)
+    public static function getNews(array $category_id = null, array $tags_id = null)
     {
 
         $query = News::find();
@@ -14,7 +14,12 @@ class NewsService
             ->joinWith(['category', 'tags']);
 
         if (!empty($category_id)) {
-            $query->andFilterWhere(['=', 'category.id', $category_id]);
+            $query->andFilterWhere(['=', 'category.id', $category_id[0]]);
+            if (count($category_id) > 1) {
+                for ($i = 1; $i < count($category_id); ++$i) {
+                    $query->orFilterWhere(['=', 'category.id', $category_id[$i]]);
+                }
+            }
         }
 
         if (!empty($tags_id)) {

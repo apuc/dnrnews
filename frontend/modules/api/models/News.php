@@ -22,6 +22,9 @@ class News extends \common\models\News implements Linkable
             'like' => function () {
                 return $this->getLikesCount();
             },
+            'category' => function () {
+                return $this->category;
+            },
         ];
     }
 
@@ -29,6 +32,12 @@ class News extends \common\models\News implements Linkable
     {
         return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
             ->via('newsTags');
+    }
+
+    public function getCategory()
+    {
+        return $this->hasMany(Category::className(), ['id' => 'category_id'])
+            ->via('categoryNews');
     }
 
     public function getComments(): \yii\db\ActiveQuery

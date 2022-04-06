@@ -63,11 +63,11 @@
     </tr>
     <tr>
         <td>
-            expand=tags, comments, news_body, like, photo
+            expand=tags, comments, news_body, like, photo, category
         </td>
         <td>
              Добавляет к данным: категорий; данные закреплённых за ней тегов; коментариев; 
-            тело новости; лайки; ссылку на фото новости
+            тело новости; лайки; ссылку на фото новости; данные категории
         </td>
         <td>
             Нет
@@ -86,10 +86,10 @@
 
 ```json5
 {
-  "message": "News list.",
+  "message": "News",
   "data": {
-    "id": 1,
-    "title": "fdgdrgbfd",
+    "id": 3,
+    "title": "000000003333333",
     "tags": [
       {
         "id": 5,
@@ -102,23 +102,29 @@
     ],
     "comments": [
       {
-        "id": 1,
+        "id": 3,
         "comment_body": "fkjnvjdkfnvjkfcv",
-        "username": "test"
-      },
-      "...",
+        "username": "popo"
+      },    
+      '...',
       {
-        "id": 20,
-        "comment_body": "jbjdhfbvjhfbvfcfvffvf",
+        "id": 84,
+        "comment_body": "fkjnvjdkfnvjkfcv",
         "username": "popo"
       }
     ],
-    "photo": "pppp11111",
-    "news_body": "11111111111111",
+    "photo": "pppppp33333333",
+    "news_body": "333333333333333333",
     "like": "0",
+    "category": [
+      {
+        "id": 1,
+        "title": "category1"
+      }
+    ],
     "_links": {
       "self": {
-        "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=1"
+        "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=3"
       }
     }
   }
@@ -145,10 +151,10 @@
     </tr>
     <tr>
         <td>
-            category_id
+            category_id[] (массив)
         </td>
         <td>
-            Возвращает список новостей данной категории
+            При указании массива id категорий, возвращает список новостей с задаными категориями
         </td>
     </tr>
     <tr>
@@ -161,7 +167,7 @@
     </tr>
     <tr>
         <td>
-            expand=tags, comments, photo, news_body, like
+            expand=tags, comments, news_body, like, photo, category
         </td>
         <td>
              Добавляет к данным: категории; данные закреплённых за ней тегов; коментарии; 
