@@ -13,10 +13,10 @@ class Comment extends \common\models\Comment
     {
         return [
             'dislike' => function () {
-                $this->getUserCommentDislikeCount();
+                return $this->getUserCommentDislikeCount();
             },
             'like' => function () {
-                $this->getUserCommentLikeCount();
+                return $this->getUserCommentLikeCount();
             }
         ];
     }

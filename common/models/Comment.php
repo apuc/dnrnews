@@ -99,12 +99,12 @@ class Comment extends \yii\db\ActiveRecord
 
     public function getUserCommentLike()
     {
-        return $this->hasMany(UserCommentLike::className(), ['news_id' => 'id']);
+        return $this->hasMany(UserCommentLike::className(), ['comment_id' => 'id']);
     }
 
     public function getUserCommentDislike()
     {
-        return $this->hasMany(UserCommentDislike::className(), ['news_id' => 'id']);
+        return $this->hasMany(UserCommentDislike::className(), ['comment_id' => 'id']);
     }
 
     public function getUserCommentLikeCount()

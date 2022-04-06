@@ -61,6 +61,9 @@
         <th>
             Значение
         </th>
+        <th>
+            Требуется
+        </th>
     </tr>
     <tr>
         <td>
@@ -68,6 +71,20 @@
         </td>
         <td>
             id коментария
+        </td>
+        <td>
+            Да
+        </td>
+    </tr>
+    <tr>
+        <td>
+            expand=like, dislike
+        </td>
+        <td>
+             Добавляет к данным количество: лайков; дислайков;
+        </td>
+        <td>
+            Нет
         </td>
     </tr>
 </table>
@@ -85,9 +102,11 @@
 {
   "message": "One comment.",
   "data": {
-    "id": 1,
+    "id": 2,
     "comment_body": "fkjnvjdkfnvjkfcv",
-    "username": "test"
+    "username": "ghhgccfg",
+    "dislike": "3",
+    "like": "6"
   }
 }
 ```
@@ -99,7 +118,7 @@
     Для получения коментариев к новости необходимо отправить <b>GET</b> запрос на URL http://dnrone.loc/api/comment/news-comments
 </p>
 <p>
-    Требуемые параметры:
+    Параметры:
 </p>
 <table>
     <tr>
@@ -109,6 +128,9 @@
         <th>
             Значение
         </th>
+        <th>
+            Требуется
+        </th>
     </tr>
     <tr>
         <td>
@@ -117,6 +139,20 @@
         <td>
             id новости
         </td>
+        <th>
+            Да
+        </th>
+    </tr>
+    <tr>
+        <td>
+            expand=like, dislike
+        </td>
+        <td>
+             Добавляет к данным количество: лайков; дислайков;
+        </td>
+        <th>
+            Нет
+        </th>
     </tr>
 </table>
 <p>
@@ -134,20 +170,19 @@
   "message": "Comment list for news.",
   "data": [
     {
-      "id": 1,
+      "id": 2,
       "comment_body": "fkjnvjdkfnvjkfcv",
-      "username": "test"
+      "username": "ghhgccfg",
+      "dislike": "3",
+      "like": "6"
     },
+   '...',
     {
-      "id": 4,
+      "id": 83,
       "comment_body": "fkjnvjdkfnvjkfcv",
-      "username": "test"
-    },
-    '...',
-    {
-      "id": 25,
-      "comment_body": "jbjdhfbvjhfbvfcfvffvf",
-      "username": "popo"
+      "username": "ghhgccfg",
+      "dislike": "0",
+      "like": "0"
     }
   ]
 }
@@ -160,7 +195,7 @@
     Требуется токен доступа. <br>Для создания коментария необходимо отправить <b>POST</b> запрос на URL http://dnrone.loc/api/comment/create
 </p>
 <p>
-    Требуемые параметры:
+    Параметры:
 </p>
 <table>
     <tr>
