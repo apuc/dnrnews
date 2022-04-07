@@ -2641,3 +2641,6 @@
 127.0.0.1 - - [07/Apr/2022:10:44:28 +0300] "GET /assets/ae30508f/js/gii.js HTTP/1.1" 200 12562 "http://dnrone.loc/gii/model" "Mozilla/5.0 (X11; Linux x86_64; rv:97.0) Gecko/20100101 Firefox/97.0"
 127.0.0.1 - - [07/Apr/2022:10:44:28 +0300] "GET /debug/default/toolbar?tag=624e965c6e130 HTTP/1.1" 200 3479 "http://dnrone.loc/gii/model" "Mozilla/5.0 (X11; Linux x86_64; rv:97.0) Gecko/20100101 Firefox/97.0"
 127.0.0.1 - - [07/Apr/2022:10:44:28 +0300] "GET /favicon.ico HTTP/1.1" 200 318 "http://dnrone.loc/gii/model" "Mozilla/5.0 (X11; Linux x86_64; rv:97.0) Gecko/20100101 Firefox/97.0"
+127.0.0.1 - - [07/Apr/2022:12:01:10 +0300] "GET /api/category/category?category_id=2&expand=tags HTTP/1.1" 200 107 "-" "PostmanRuntime/7.28.4"
+127.0.0.1 - - [07/Apr/2022:12:06:25 +0300] "GET /api/category/category?category_id=2&expand=tags HTTP/1.1" 200 107 "-" "PostmanRuntime/7.28.4"
+127.0.0.1 - - [07/Apr/2022:12:06:32 +0300] "GET /api/category/category?expand=tags HTTP/1.1" 200 1010 "-" "PostmanRuntime/7.28.4"

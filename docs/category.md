@@ -50,7 +50,7 @@
     </tr>
     <tr>
         <td>
-            expand=tag
+            expand=tags
         </td>
         <td>
              Добавляет к данным категории данные закреплённых за ней тегов
@@ -61,7 +61,7 @@
     Пример запроса:
 </p>
 
-`http://dnrone.loc/api/category/category`
+`http://dnrone.loc/api/category/category?expand=tags`
 
 <p>
     Пример возвращаемых данных
