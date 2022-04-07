@@ -45,7 +45,6 @@ class UserCommentDislikeController extends ApiController
         );
 
         if ($userCommentDislikeModel->hasErrors()) {
-            Yii::$app->response->statusCode = 404;
             return ResponseService::errorResponse(
                 $userCommentDislikeModel->errors
             );
@@ -68,7 +67,6 @@ class UserCommentDislikeController extends ApiController
         );
 
         if (empty($userCommentDislikeModel)) {
-            Yii::$app->response->statusCode = 404;
             return ResponseService::errorResponse(
                 'Dislike not found.'
             );

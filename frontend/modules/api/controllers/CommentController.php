@@ -44,7 +44,6 @@ class CommentController extends ApiController
         );
 
         if (empty($response['data'])) {
-            Yii::$app->response->statusCode = 404;
             $response = ResponseService::errorResponse(
                 'The comment not exist!'
             );
@@ -60,7 +59,6 @@ class CommentController extends ApiController
         );
 
         if (empty($response['data'])) {
-            Yii::$app->response->statusCode = 404;
             $response = ResponseService::errorResponse(
                 'The comment not exist!'
             );
@@ -97,7 +95,6 @@ class CommentController extends ApiController
                 $comment
             );
         } else {
-            Yii::$app->response->statusCode = 404;
             $response = ResponseService::errorResponse(
                 'Comment not found!'
             );

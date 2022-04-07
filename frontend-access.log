@@ -2619,3 +2619,6 @@
 127.0.0.1 - - [06/Apr/2022:21:25:41 +0300] "GET /api/comment/news-comments?news_id=2&expand=like HTTP/1.1" 200 1288 "-" "PostmanRuntime/7.28.4"
 127.0.0.1 - - [06/Apr/2022:21:25:52 +0300] "GET /api/comment/news-comments?news_id=2&expand=like,%20dislike HTTP/1.1" 200 1512 "-" "PostmanRuntime/7.28.4"
 127.0.0.1 - - [06/Apr/2022:21:27:07 +0300] "GET /api/comment/comment?comment_id=2&expand=like,%20dislike HTTP/1.1" 200 134 "-" "PostmanRuntime/7.28.4"
+127.0.0.1 - - [07/Apr/2022:09:48:29 +0300] "GET /api/user-news-like/check-news-like?news_id=1 HTTP/1.1" 401 142 "-" "PostmanRuntime/7.28.4"
+127.0.0.1 - - [07/Apr/2022:09:48:40 +0300] "GET /api/user/login?username=refUserjj&password=123456789 HTTP/1.1" 200 220 "-" "PostmanRuntime/7.28.4"
+127.0.0.1 - - [07/Apr/2022:09:48:53 +0300] "GET /api/user-news-like/check-news-like?news_id=1 HTTP/1.1" 200 55 "-" "PostmanRuntime/7.28.4"

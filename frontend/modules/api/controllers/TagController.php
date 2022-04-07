@@ -32,7 +32,6 @@ class TagController extends ApiController
         }
 
         if (empty($response['data'])) {
-            Yii::$app->response->statusCode = 404;
             $response = ResponseService::errorResponse(
                 'The tag not exist!'
             );

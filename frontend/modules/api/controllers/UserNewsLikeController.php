@@ -91,7 +91,6 @@ class UserNewsLikeController extends ApiController
                 $model
             );
         } else {
-            Yii::$app->response->statusCode = 404;
             return ResponseService::errorResponse(
                 'Like not found.'
             );
