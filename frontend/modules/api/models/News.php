@@ -17,6 +17,9 @@ class News extends \common\models\News implements Linkable
         return [
             'tags',
             'comments',
+            'comments_count' => function () {
+                return $this->getCommentsCount();
+            },
             'photo',
             'news_body',
             'like' => function () {

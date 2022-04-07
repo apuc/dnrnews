@@ -63,10 +63,10 @@
     </tr>
     <tr>
         <td>
-            expand=tags, comments, news_body, like, photo, category
+            expand=tags, comments, comments_count news_body, like, photo, category
         </td>
         <td>
-             Добавляет к данным: категорий; данные закреплённых за ней тегов; коментариев; 
+             Добавляет к данным: категорий; данные закреплённых за ней тегов; коментариев; количество комментариев;
             тело новости; лайки; ссылку на фото новости; данные категории
         </td>
         <td>
@@ -167,10 +167,10 @@
     </tr>
     <tr>
         <td>
-            expand=tags, comments, news_body, like, photo, category
+            expand=tags, comments, comments_count, news_body, like, photo, category
         </td>
         <td>
-             Добавляет к данным: категории; данные закреплённых за ней тегов; коментарии; 
+             Добавляет к данным: категории; данные закреплённых за ней тегов; коментарии; количество комментариев;
             тело новости; лайки; ссылку на фото новости
         </td>
     </tr>

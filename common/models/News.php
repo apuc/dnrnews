@@ -135,4 +135,9 @@ class News extends \yii\db\ActiveRecord
     {
         return $this->getUserNewsLike()->count();
     }
+
+    public function getCommentsCount()
+    {
+        return $this->getComments()->count();
+    }
 }
