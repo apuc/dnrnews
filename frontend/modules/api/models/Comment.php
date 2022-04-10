@@ -4,12 +4,15 @@ namespace frontend\modules\api\models;
 
 class Comment extends \common\models\Comment
 {
-    public function fields()
+    public $user_like;
+    public $user_dislike;
+
+    public function fields(): array
     {
         return ['id', 'comment_body', 'username'];
     }
 
-    public function extraFields()
+    public function extraFields(): array
     {
         return [
             'dislike' => function () {
@@ -17,7 +20,9 @@ class Comment extends \common\models\Comment
             },
             'like' => function () {
                 return $this->getUserCommentLikeCount();
-            }
+            },
+            'user_like' ,
+            'user_dislike'
         ];
     }
 }

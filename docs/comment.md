@@ -1,4 +1,5 @@
 # Коментарии
+
 ## Методы
 
 <table>
@@ -145,10 +146,21 @@
     </tr>
     <tr>
         <td>
-            expand=like, dislike
+            user_id
         </td>
         <td>
-             Добавляет к данным количество: лайков; дислайков;
+            id пользователя, используется проверки выставлен ли пользователем лайк/дислайк
+        </td>
+        <th>
+            Нет
+        </th>
+    </tr>
+    <tr>
+        <td>
+            expand=like, dislike,user_like, user_dislike
+        </td>
+        <td>
+             Добавляет к данным количество лайков и дислайков, флаги выставлен пользователем лайк и дислайк
         </td>
         <th>
             Нет
@@ -174,15 +186,19 @@
       "comment_body": "fkjnvjdkfnvjkfcv",
       "username": "ghhgccfg",
       "dislike": "3",
-      "like": "6"
+      "like": "5",
+      "user_like": "false",
+      "user_dislike": "true"
     },
-   '...',
+    '...',
     {
       "id": 83,
       "comment_body": "fkjnvjdkfnvjkfcv",
       "username": "ghhgccfg",
       "dislike": "0",
-      "like": "0"
+      "like": "0",
+      "user_like": "false",
+      "user_dislike": "false"
     }
   ]
 }

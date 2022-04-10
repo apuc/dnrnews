@@ -68,7 +68,6 @@ class UserCommentLikeController extends ApiController
         );
 
         if (empty($userCommentLikeModel)) {
-            Yii::$app->response->statusCode = 400;
             return ResponseService::errorResponse(
                 'Like not found.'
             );

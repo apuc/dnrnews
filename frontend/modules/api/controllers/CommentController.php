@@ -2,6 +2,7 @@
 
 namespace frontend\modules\api\controllers;
 
+use common\services\CommentService;
 use common\services\ResponseService;
 use frontend\modules\api\models\Comment;
 use Yii;
@@ -51,11 +52,13 @@ class CommentController extends ApiController
         return $response;
     }
 
-    public function actionNewsComments($news_id): array
+    public function actionNewsComments($news_id, $user_id = null)//: array
     {
+        $newsComment = CommentService::commentsNews($news_id, $user_id);
+
         $response = ResponseService::successResponse(
             'Comment list for news.',
-            Comment::find()->where(['news_id' => $news_id])->all()
+            $newsComment
         );
 
         if (empty($response['data'])) {
@@ -69,7 +72,7 @@ class CommentController extends ApiController
     public function actionCreate(): array
     {
         $commentModel = new Comment();
-        $commentModel->user_id = \Yii::$app->user->identity->id;
+        $commentModel->user_id = Yii::$app->user->identity->id;
 
         if ($commentModel->load(Yii::$app->request->post(), '') && $commentModel->save()) {
             $response = ResponseService::successResponse(
