@@ -3,6 +3,7 @@
 
 namespace common\services;
 
+use common\models\User;
 use common\models\UserCommentDislike;
 use common\models\UserCommentLike;
 use frontend\modules\api\models\Comment;
@@ -10,25 +11,33 @@ use frontend\modules\api\models\Comment;
 
 class CommentService
 {
-    public static function commentsNews($news_id, $user_id)
+    public static function commentsNews($request): array
     {
+        $news_id = $request->get('news_id');
         $commentsArray = Comment::find()->where(['news_id' => $news_id])->all();
 
-        if (!empty($user_id)){
+        $user_id = null;
+        if ($request->getHeaders()->get('Authorization')) {
+            $authHeader = $request->getHeaders()->get('Authorization');
+            preg_match('/^Bearer\s+(.*?)$/', $authHeader, $token);
+            $user_id = User::find()->where(['access_token' => $token[1]])->select('id')->all();
+        }
+
+        if (!empty($user_id)) {
             for ($i = 0; $i < count($commentsArray); ++$i) {
-                if (self::hasLike($user_id, $commentsArray[$i]['id'])) {
-                    $commentsArray[$i]['user_like'] = 'true';
-                    $commentsArray[$i]['user_dislike'] = 'false';
+                if (self::hasLike($user_id[0]['id'], $commentsArray[$i]['id'])) {
+                    $commentsArray[$i]['user_like'] = true;
+                    $commentsArray[$i]['user_dislike'] = false;
                     continue;
                 }
 
-                if (self::hasDislike($user_id, $commentsArray[$i]['id'])) {
-                    $commentsArray[$i]['user_like'] = 'false';
-                    $commentsArray[$i]['user_dislike'] = 'true';
+                if (self::hasDislike($user_id[0]['id'], $commentsArray[$i]['id'])) {
+                    $commentsArray[$i]['user_like'] = false;
+                    $commentsArray[$i]['user_dislike'] = true;
                     continue;
                 }
-                $commentsArray[$i]['user_like'] = 'false';
-                $commentsArray[$i]['user_dislike'] = 'false';
+                $commentsArray[$i]['user_like'] = false;
+                $commentsArray[$i]['user_dislike'] = false;
             }
         }
 

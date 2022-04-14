@@ -52,9 +52,9 @@ class CommentController extends ApiController
         return $response;
     }
 
-    public function actionNewsComments($news_id, $user_id = null)//: array
+    public function actionNewsComments($news_id): array
     {
-        $newsComment = CommentService::commentsNews($news_id, $user_id);
+        $newsComment = CommentService::commentsNews(Yii::$app->request);
 
         $response = ResponseService::successResponse(
             'Comment list for news.',
