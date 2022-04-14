@@ -6,6 +6,7 @@ use yii\filters\ContentNegotiator;
 use yii\helpers\ArrayHelper;
 use yii\rest\Controller;
 use yii\web\Response;
+use common\behaviors\GsCors;
 
 class ApiController extends Controller
 {
@@ -16,6 +17,19 @@ class ApiController extends Controller
                 'class' => ContentNegotiator::class,
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
+                ],
+                'corsFilter' => [
+                    'class' => GsCors::class,
+                    'cors' => [
+                        'Origin' => ['*'],
+                        //'Access-Control-Allow-Credentials' => true,
+                        'Access-Control-Allow-Headers' => [
+                            'Content-Type',
+                            'Access-Control-Allow-Headers',
+                            'Authorization',
+                            'X-Requested-With'
+                        ],
+                    ]
                 ],
             ],
         ]);
