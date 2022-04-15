@@ -63,4 +63,19 @@ class NewsController extends ApiController
         }
         return $response;
     }
+
+    public function actionFindByDate(int $published, int $from_date = null): array
+    {
+        $response = ResponseService::successResponse(
+            'News list',
+            NewsService::findNewsByDate($published, $from_date)
+        );
+
+        if (empty($response['data'])) {
+            $response = ResponseService::errorResponse(
+                'The news not found!'
+            );
+        }
+        return $response;
+    }
 }

@@ -35,6 +35,14 @@
             Поиск новостей
         </td>
     </tr>
+    <tr>
+        <td>
+            api/news/find-by-date
+        </td>
+        <td>
+            Поиск новостей по дате
+        </td>
+    </tr>
 </table>
 
 ### Получение новости
@@ -233,7 +241,7 @@
 
 ### Поиск новостей
 
-`http://dnrone.loc/api/news/аштв`
+`http://dnrone.loc/api/news/find`
 <p>
     Для поиска новостей необходимо отправить <b>GET</b> запрос на URL http://dnrone.loc/api/news/find
     При передаче запроса без параметров title и text будет возвращен список всех новостей.
@@ -324,3 +332,107 @@
 }
 ```
 
+### Поиск новостей
+
+`http://dnrone.loc/api/news/find-by-date`
+<p>
+    Для поиска новостей по дате публикации необходимо отправить <b>GET</b> запрос на URL http://dnrone.loc/api/news/find-by-date
+    При передаче параметра from_date будет будет произведен поиск по промежутку между датами.
+</p>
+<p>
+    Возможные параметры:
+</p>
+<table>
+    <tr>
+        <th>
+            Параметры
+        </th>
+        <th>
+            Значение
+        </th>
+        <th>
+            Обязателен
+        </th>
+    </tr>
+    <tr>
+        <td>
+            published
+        </td>
+        <td>
+            Дата публикации
+        </td>
+        <td>
+            Да
+        </td>
+    </tr>
+    <tr>
+        <td>
+            from_date
+        </td>
+        <td>
+            Начальная дата периода поиска
+        </td>
+        <td>
+            Нет
+        </td>
+    </tr>
+    <tr>
+        <td>
+            expand=tags, comments, comments_count, news_body, like, photo, category
+        </td>
+        <td>
+             Добавляет к данным: категории; данные закреплённых за ней тегов; коментарии; количество комментариев;
+            тело новости; лайки; ссылку на фото новости
+        </td>
+        <td>
+            Нет
+        </td>
+    </tr>
+</table>
+<p>
+    Пример запроса:
+</p>
+
+`http://dnrone.loc/api/news/find-by-date?published=1648369010&from_date=1648368999&expand=tags,comments,photo,news_body`
+
+<p>
+    Пример возвращаемых данных
+</p>
+
+```json5
+{
+  "message": "News list",
+  "data": [
+    {
+      "id": 5,
+      "title": "0055555",
+      "published_date": 1648368999,
+      "_links": {
+        "self": {
+          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=5"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "title": "00666666666",
+      "published_date": 1648369000,
+      "_links": {
+        "self": {
+          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=6"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "title": "09999999",
+      "published_date": 1648369010,
+      "_links": {
+        "self": {
+          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=9"
+        }
+      }
+    }
+  ]
+}
+```

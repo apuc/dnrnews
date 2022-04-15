@@ -6,6 +6,18 @@ use frontend\modules\api\models\News;
 
 class NewsService
 {
+    public static function findNewsByDate($published, $from_date): array
+    {
+        $query = News::find();
+
+        if (empty($from_date)) {
+            $query->where(['like', 'created_at', $published]);
+        } else {
+            $query->where(['between', 'created_at', $from_date, $published]);
+        }
+        return $query->all();
+    }
+
     public static function findNews($title, $text): array
     {
         $query = News::find();

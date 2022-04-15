@@ -2,6 +2,7 @@
 
 namespace frontend\modules\api\models;
 
+use yii\db\ActiveQuery;
 use yii\helpers\Url;
 use yii\web\Linkable;
 
@@ -9,7 +10,13 @@ class News extends \common\models\News implements Linkable
 {
     public function fields()
     {
-        return ['id', 'title'];
+        return [
+            'id',
+            'title',
+            'published_date' => function () {
+                return  $this->created_at;
+            }
+        ];
     }
 
     public function extraFields()
@@ -31,7 +38,7 @@ class News extends \common\models\News implements Linkable
         ];
     }
 
-    public function getTags(): \yii\db\ActiveQuery
+    public function getTags(): ActiveQuery
     {
         return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
             ->via('newsTags');
@@ -43,7 +50,7 @@ class News extends \common\models\News implements Linkable
             ->via('categoryNews');
     }
 
-    public function getComments(): \yii\db\ActiveQuery
+    public function getComments(): ActiveQuery
     {
         return $this->hasMany(Comment::className(), ['news_id' => 'id']);
     }
