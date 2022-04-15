@@ -27,6 +27,14 @@
             Получение списка новостей
         </td>
     </tr>
+    <tr>
+        <td>
+            api/news/find
+        </td>
+        <td>
+            Поиск новостей
+        </td>
+    </tr>
 </table>
 
 ### Получение новости
@@ -222,3 +230,97 @@
   ]
 }
 ```
+
+### Поиск новостей
+
+`http://dnrone.loc/api/news/аштв`
+<p>
+    Для поиска новостей необходимо отправить <b>GET</b> запрос на URL http://dnrone.loc/api/news/find
+    При передаче запроса без параметров title и text будет возвращен список всех новостей.
+</p>
+<p>
+    Возможные параметры:
+</p>
+<table>
+    <tr>
+        <th>
+            Параметры
+        </th>
+        <th>
+            Значение
+        </th>
+    </tr>
+    <tr>
+        <td>
+            title
+        </td>
+        <td>
+            Текст для поиска по заголовкам статей
+        </td>
+    </tr>
+    <tr>
+        <td>
+            text
+        </td>
+        <td>
+            Текст для поиска по телу новостей
+        </td>
+    </tr>
+    <tr>
+        <td>
+            expand=tags, comments, comments_count, news_body, like, photo, category
+        </td>
+        <td>
+             Добавляет к данным: категории; данные закреплённых за ней тегов; коментарии; количество комментариев;
+            тело новости; лайки; ссылку на фото новости
+        </td>
+    </tr>
+</table>
+<p>
+    Пример запроса:
+</p>
+
+`http://dnrone.loc/api/news/find?title=as&text=4444&expand=tags,comments,photo,news_body,like,category`
+
+<p>
+    Пример возвращаемых данных
+</p>
+
+```json5
+{
+  "message": "News list",
+  "data": [
+    {
+      "id": 12,
+      "title": "asdd",
+      "tags": [],
+      "comments": [],
+      "photo": "pppp444444",
+      "news_body": "444444444444444 3456789hgvcxcv",
+      "like": "0",
+      "category": [],
+      "_links": {
+        "self": {
+          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=12"
+        }
+      }
+    },
+    {
+      "id": 14,
+      "title": "assxv",
+      "tags": [],
+      "comments": [],
+      "photo": "pppp444444",
+      "news_body": "444444444444444 dfghjbk",
+      "like": "0",
+      "category": [],
+      "_links": {
+        "self": {
+          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=14"
+        }
+      }
+    }
+  ]
+}
+```
+

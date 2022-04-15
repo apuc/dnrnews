@@ -5,7 +5,6 @@ namespace frontend\modules\api\controllers;
 use common\services\NewsService;
 use common\services\ResponseService;
 use frontend\modules\api\models\News;
-use Yii;
 
 class NewsController extends ApiController
 {
@@ -16,6 +15,7 @@ class NewsController extends ApiController
         return [
             'news' => ['GET'],
             'news-list' => ['GET'],
+            'find' => ['GET'],
         ];
     }
 
@@ -39,6 +39,21 @@ class NewsController extends ApiController
         $response = ResponseService::successResponse(
             'News list',
             NewsService::getNews($category_id, $tags_id)
+        );
+
+        if (empty($response['data'])) {
+            $response = ResponseService::errorResponse(
+                'The news not exist!'
+            );
+        }
+        return $response;
+    }
+
+    public function actionFind($title = null, $text = null)
+    {
+        $response = ResponseService::successResponse(
+            'News list',
+            NewsService::findNews($title, $text)
         );
 
         if (empty($response['data'])) {

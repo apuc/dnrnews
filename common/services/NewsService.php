@@ -6,9 +6,23 @@ use frontend\modules\api\models\News;
 
 class NewsService
 {
+    public static function findNews($title, $text): array
+    {
+        $query = News::find();
+
+        if (!empty($title)) {
+            $query->filterWhere(['like', 'title', $title]);
+        }
+
+        if (!empty($text)) {
+            $query->andFilterWhere(['like', 'news_body', $text]);
+        }
+
+        return $query->all();
+    }
+
     public static function getNews(array $category_id = null, array $tags_id = null)
     {
-
         $query = News::find();
         $query->distinct()
             ->joinWith(['category', 'tags']);
