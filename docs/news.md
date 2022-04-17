@@ -121,7 +121,7 @@
         "id": 3,
         "comment_body": "fkjnvjdkfnvjkfcv",
         "username": "popo"
-      },    
+      },
       '...',
       {
         "id": 84,
@@ -203,39 +203,47 @@
 
 ```json5
 {
-  "message": "News list.",
-  "data": [
-    {
-      "id": 1,
-      "title": "fdgdrgbfd",
-      "photo": "pppp11111",
-      "_links": {
-        "self": {
-          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=1"
-        }
-      }
-    },
-    {
-      "id": 2,
-      "title": "dfgvfdbf",
-      "photo": "ppppp22222222",
-      "_links": {
-        "self": {
-          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=2"
-        }
-      }
-    },
+  "news": [
     {
       "id": 3,
-      "title": "fdgdfg",
-      "photo": "pppppp33333333",
+      "title": "000000003333333",
+      "published_date": 1648312837,
+      "views": 9,
       "_links": {
         "self": {
           "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=3"
         }
       }
+    },
+    {
+      "id": 10,
+      "title": "bb",
+      "published_date": 1648360000,
+      "views": 0,
+      "_links": {
+        "self": {
+          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=10"
+        }
+      }
     }
-  ]
+  ],
+  "_links": {
+    "self": {
+      "href": "http://dnrone.loc/api/news/news-list?tags_id%5B0%5D=5&tags_id%5B1%5D=7&tags_id%5B2%5D=4&page=1"
+    },
+    "first": {
+      "href": "http://dnrone.loc/api/news/news-list?tags_id%5B0%5D=5&tags_id%5B1%5D=7&tags_id%5B2%5D=4&page=1"
+    },
+    "last": {
+      "href": "http://dnrone.loc/api/news/news-list?tags_id%5B0%5D=5&tags_id%5B1%5D=7&tags_id%5B2%5D=4&page=1"
+    }
+  },
+  "_meta": {
+    "totalCount": 2,
+    "pageCount": 1,
+    "currentPage": 1,
+    "perPage": 20
+  }
 }
 ```
 
@@ -296,43 +304,64 @@
 
 ```json5
 {
-  "message": "News list",
-  "data": [
+  "news": [
     {
       "id": 12,
       "title": "asdd",
+      "published_date": 1648378837,
+      "views": 0,
       "tags": [],
       "comments": [],
       "photo": "pppp444444",
       "news_body": "444444444444444 3456789hgvcxcv",
-      "like": "0",
-      "category": [],
+      "like": 0,
+      "category": 0,
       "_links": {
         "self": {
           "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=12"
         }
       }
     },
+    '...',
     {
-      "id": 14,
+      "id": 48,
       "title": "assxv",
+      "published_date": 1648378837,
+      "views": 0,
       "tags": [],
       "comments": [],
       "photo": "pppp444444",
       "news_body": "444444444444444 dfghjbk",
-      "like": "0",
-      "category": [],
+      "like": 0,
+      "category": 0,
       "_links": {
         "self": {
-          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=14"
+          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=48"
         }
       }
     }
-  ]
+  ],
+  "_links": {
+    "self": {
+      "href": "http://dnrone.loc/api/news/find?title=as&text=4444&expand=tags%2Ccomments%2Cphoto%2Cnews_body%2Clike%2Ccategory&page=1"
+    },
+    "first": {
+      "href": "http://dnrone.loc/api/news/find?title=as&text=4444&expand=tags%2Ccomments%2Cphoto%2Cnews_body%2Clike%2Ccategory&page=1"
+    },
+    "last": {
+      "href": "http://dnrone.loc/api/news/find?title=as&text=4444&expand=tags%2Ccomments%2Cphoto%2Cnews_body%2Clike%2Ccategory&page=1"
+    }
+  },
+  "_meta": {
+    "totalCount": 4,
+    "pageCount": 1,
+    "currentPage": 1,
+    "perPage": 20
+  }
 }
 ```
 
-### Поиск новостей
+### Поиск новостей по дате
 
 `http://dnrone.loc/api/news/find-by-date`
 <p>
@@ -401,38 +430,47 @@
 
 ```json5
 {
-  "message": "News list",
-  "data": [
+  "news": [
     {
       "id": 5,
       "title": "0055555",
       "published_date": 1648368999,
+      "views": 0,
       "_links": {
         "self": {
           "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=5"
         }
       }
     },
-    {
-      "id": 6,
-      "title": "00666666666",
-      "published_date": 1648369000,
-      "_links": {
-        "self": {
-          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=6"
-        }
-      }
-    },
+    '...',
     {
       "id": 9,
       "title": "09999999",
       "published_date": 1648369010,
+      "views": 0,
       "_links": {
         "self": {
           "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=9"
         }
       }
     }
-  ]
+  ],
+  "_links": {
+    "self": {
+      "href": "http://dnrone.loc/api/news/find-by-date?published=1648369010&from_date=1648368999&page=1"
+    },
+    "first": {
+      "href": "http://dnrone.loc/api/news/find-by-date?published=1648369010&from_date=1648368999&page=1"
+    },
+    "last": {
+      "href": "http://dnrone.loc/api/news/find-by-date?published=1648369010&from_date=1648368999&page=1"
+    }
+  },
+  "_meta": {
+    "totalCount": 5,
+    "pageCount": 1,
+    "currentPage": 1,
+    "perPage": 20
+  }
 }
 ```

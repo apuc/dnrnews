@@ -4,10 +4,10 @@ namespace frontend\modules\api\controllers;
 
 use common\behaviors\GsCors;
 use yii\filters\ContentNegotiator;
-use yii\rest\Controller;
 use yii\web\Response;
+use yii\rest\ActiveController;
 
-class ApiController extends Controller
+class ApiController extends ActiveController
 {
     public function behaviors(): array
     {

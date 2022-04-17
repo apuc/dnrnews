@@ -3,10 +3,12 @@
 namespace common\services;
 
 use frontend\modules\api\models\News;
+use yii\db\ActiveQuery;
+use yii\db\StaleObjectException;
 
 class NewsService
 {
-    public static function findNewsByDate($published, $from_date): array
+    public static function findNewsByDate($published, $from_date): ActiveQuery
     {
         $query = News::find();
 
@@ -15,10 +17,10 @@ class NewsService
         } else {
             $query->where(['between', 'created_at', $from_date, $published]);
         }
-        return $query->all();
+        return $query;
     }
 
-    public static function findNews($title, $text): array
+    public static function findNews($title, $text): ActiveQuery
     {
         $query = News::find();
 
@@ -30,10 +32,10 @@ class NewsService
             $query->andFilterWhere(['like', 'news_body', $text]);
         }
 
-        return $query->all();
+        return $query;
     }
 
-    public static function getNews(array $category_id = null, array $tags_id = null)
+    public static function getNewsList(array $category_id = null, array $tags_id = null): ActiveQuery
     {
         $query = News::find();
         $query->distinct()
@@ -57,6 +59,25 @@ class NewsService
             }
         }
 
-        return $query->all();
+        return $query;
+    }
+
+    /**
+     * @throws StaleObjectException
+     */
+    public static function getNews($news_id): ?News
+    {
+        $news = News::findOne($news_id);
+        self::addView($news);
+        return $news;
+    }
+
+    /**
+     * @throws StaleObjectException
+     */
+    private static function addView(News $news)
+    {
+        $news->views = $news->views + 1;
+        $news->update(false);
     }
 }

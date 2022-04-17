@@ -4,11 +4,16 @@ namespace frontend\modules\api\controllers;
 
 use common\services\NewsService;
 use common\services\ResponseService;
-use frontend\modules\api\models\News;
+use yii\data\ActiveDataProvider;
 
 class NewsController extends ApiController
 {
     public $modelClass = 'frontend\modules\api\models\News';
+    public $serializer = [
+        'class' => 'yii\rest\Serializer',
+        'collectionEnvelope' => 'news',
+
+    ];
 
     public function verbs(): array
     {
@@ -16,6 +21,7 @@ class NewsController extends ApiController
             'news' => ['GET'],
             'news-list' => ['GET'],
             'find' => ['GET'],
+            'find-by-date' => ['GET'],
         ];
     }
 
@@ -23,7 +29,7 @@ class NewsController extends ApiController
     {
         $response = ResponseService::successResponse(
             'News',
-            News::findOne($news_id)
+            NewsService::getNews($news_id)
         );
 
         if (empty($response['data'])) {
@@ -34,48 +40,24 @@ class NewsController extends ApiController
         return $response;
     }
 
-    public function actionNewsList(array $category_id = null, array $tags_id = null): array
+    public function actionNewsList(array $category_id = null, array $tags_id = null): ActiveDataProvider
     {
-        $response = ResponseService::successResponse(
-            'News list',
-            NewsService::getNews($category_id, $tags_id)
-        );
-
-        if (empty($response['data'])) {
-            $response = ResponseService::errorResponse(
-                'The news not exist!'
-            );
-        }
-        return $response;
+        return new ActiveDataProvider([
+            'query' => NewsService::getNewsList($category_id, $tags_id),
+        ]);
     }
 
-    public function actionFind($title = null, $text = null)
+    public function actionFind($title = null, $text = null): ActiveDataProvider
     {
-        $response = ResponseService::successResponse(
-            'News list',
-            NewsService::findNews($title, $text)
-        );
-
-        if (empty($response['data'])) {
-            $response = ResponseService::errorResponse(
-                'The news not exist!'
-            );
-        }
-        return $response;
+        return new ActiveDataProvider([
+            'query' => NewsService::findNews($title, $text),
+        ]);
     }
 
-    public function actionFindByDate(int $published, int $from_date = null): array
+    public function actionFindByDate(int $published, int $from_date = null): ActiveDataProvider
     {
-        $response = ResponseService::successResponse(
-            'News list',
-            NewsService::findNewsByDate($published, $from_date)
-        );
-
-        if (empty($response['data'])) {
-            $response = ResponseService::errorResponse(
-                'The news not found!'
-            );
-        }
-        return $response;
+        return new ActiveDataProvider([
+            'query' => NewsService::findNewsByDate($published, $from_date),
+        ]);
     }
 }

@@ -3,7 +3,7 @@
 namespace common\models;
 
 use yii\behaviors\TimestampBehavior;
-use yii\db\Expression;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "news".
@@ -15,12 +15,13 @@ use yii\db\Expression;
  * @property int $status
  * @property int $created_at
  * @property int $updated_at
+ * @property int|null $views
  *
  * @property CategoryNews[] $categoryNews
  * @property Comment[] $comments
  * @property NewsTag[] $newsTags
  */
-class News extends \yii\db\ActiveRecord
+class News extends ActiveRecord
 {
     public $imageFile;
 
@@ -51,7 +52,7 @@ class News extends \yii\db\ActiveRecord
     {
         return [
             [['news_body'], 'string'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
+            [['status', 'created_at', 'updated_at', 'views'], 'integer'],
 //            [['created_at', 'updated_at'], 'required'],
             [['title'], 'string', 'max' => 255],
             [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
@@ -81,6 +82,7 @@ class News extends \yii\db\ActiveRecord
             'status' => 'Статус',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'views' => 'Просмотры'
         ];
     }
 

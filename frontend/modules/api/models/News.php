@@ -15,7 +15,8 @@ class News extends \common\models\News implements Linkable
             'title',
             'published_date' => function () {
                 return  $this->created_at;
-            }
+            },
+            'views'
         ];
     }
 
@@ -25,15 +26,15 @@ class News extends \common\models\News implements Linkable
             'tags',
             'comments',
             'comments_count' => function () {
-                return $this->getCommentsCount();
+                return (int)$this->getCommentsCount();
             },
             'photo',
             'news_body',
             'like' => function () {
-                return $this->getLikesCount();
+                return (int)$this->getLikesCount();
             },
             'category' => function () {
-                return $this->category;
+                return (int)$this->category;
             },
         ];
     }
