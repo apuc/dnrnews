@@ -5,9 +5,9 @@ namespace frontend\modules\api\controllers;
 use common\behaviors\GsCors;
 use yii\filters\ContentNegotiator;
 use yii\web\Response;
-use yii\rest\ActiveController;
+use yii\rest\Controller;
 
-class ApiController extends ActiveController
+class ApiController extends Controller
 {
     public function behaviors(): array
     {
