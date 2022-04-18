@@ -34,7 +34,7 @@ class News extends \common\models\News implements Linkable
                 return (int)$this->getLikesCount();
             },
             'category' => function () {
-                return (int)$this->category;
+                return $this->category;
             },
         ];
     }
