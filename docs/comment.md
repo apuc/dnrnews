@@ -169,28 +169,47 @@
 
 ```json5
 {
-  "message": "Comment list for news.",
-  "data": [
+  "comments": [
     {
       "id": 2,
       "comment_body": "fkjnvjdkfnvjkfcv",
-      "username": "ghhgccfg",
-      "dislike": "3",
-      "like": "5",
-      "user_like": "false",
-      "user_dislike": "true"
+      "username": "refUserjj",
+      "dislike": 2,
+      "like": 6,
+      "user_like": null,
+      "user_dislike": null
     },
     '...',
     {
-      "id": 83,
-      "comment_body": "fkjnvjdkfnvjkfcv",
-      "username": "ghhgccfg",
-      "dislike": "0",
-      "like": "0",
-      "user_like": "false",
-      "user_dislike": "false"
+      "id": 42,
+      "comment_body": "jbjdhfbvjhfbvfcfvffvf",
+      "username": "refUserjj",
+      "dislike": 0,
+      "like": 0,
+      "user_like": null,
+      "user_dislike": null
     }
-  ]
+  ],
+  "_links": {
+    "self": {
+      "href": "http://dnrone.loc/api/comment/news-comments?news_id=2&expand=like%2C+dislike%2Cuser_like%2C+user_dislike&user_id=27&page=1"
+    },
+    "first": {
+      "href": "http://dnrone.loc/api/comment/news-comments?news_id=2&expand=like%2C+dislike%2Cuser_like%2C+user_dislike&user_id=27&page=1"
+    },
+    "last": {
+      "href": "http://dnrone.loc/api/comment/news-comments?news_id=2&expand=like%2C+dislike%2Cuser_like%2C+user_dislike&user_id=27&page=4"
+    },
+    "next": {
+      "href": "http://dnrone.loc/api/comment/news-comments?news_id=2&expand=like%2C+dislike%2Cuser_like%2C+user_dislike&user_id=27&page=2"
+    }
+  },
+  "_meta": {
+    "totalCount": 64,
+    "pageCount": 4,
+    "currentPage": 1,
+    "perPage": 20
+  }
 }
 ```
 

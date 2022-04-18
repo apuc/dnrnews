@@ -3,9 +3,12 @@
 namespace frontend\modules\api\controllers;
 
 use common\services\CommentService;
+use common\services\NewsService;
 use common\services\ResponseService;
 use frontend\modules\api\models\Comment;
 use Yii;
+use yii\base\BaseObject;
+use yii\data\ActiveDataProvider;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 use yii\helpers\ArrayHelper;
@@ -13,6 +16,11 @@ use yii\helpers\ArrayHelper;
 class CommentController extends ApiController
 {
     public $modelClass = 'frontend\modules\api\models\Comment';
+    public $serializer = [
+        'class' => 'yii\rest\Serializer',
+        'collectionEnvelope' => 'comments',
+
+    ];
 
     public function behaviors(): array
     {
@@ -52,21 +60,25 @@ class CommentController extends ApiController
         return $response;
     }
 
-    public function actionNewsComments($news_id): array
+    public function actionNewsComments($news_id)//: array
     {
-        $newsComment = CommentService::commentsNews(Yii::$app->request);
+        return new ActiveDataProvider([
+            'query' => CommentService::commentsNews(Yii::$app->request),
+        ]);
 
-        $response = ResponseService::successResponse(
-            'Comment list for news.',
-            $newsComment
-        );
-
-        if (empty($response['data'])) {
-            $response = ResponseService::errorResponse(
-                'The comment not exist!'
-            );
-        }
-        return $response;
+//        $newsComment = CommentService::commentsNews(Yii::$app->request);
+//
+//        $response = ResponseService::successResponse(
+//            'Comment list for news.',
+//            $newsComment
+//        );
+//
+//        if (empty($response['data'])) {
+//            $response = ResponseService::errorResponse(
+//                'The comment not exist!'
+//            );
+//        }
+//        return $response;
     }
 
     public function actionCreate(): array
