@@ -1,5 +1,7 @@
 <?php
 
+use common\helpers\StatusHelper;
+use kartik\file\FileInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,17 +16,25 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-<!--    --><?//= $form->field($model, 'photo')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'imageFile')->fileInput() ?>
+    <?=  $form->field($model, 'image')->widget(FileInput::classname(), [
+        'pluginOptions' => [
+            'showCaption' => false,
+            'showRemove' => false,
+            'showUpload' => false,
+            'browseClass' => 'btn btn-primary btn-block',
+            'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
+            'browseLabel' =>  'Select Photo'
+        ],
+    ]); ?>
 
     <?= $form->field($model, 'news_body')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+    <?= $form->field($model, 'status')->dropDownList(
+        StatusHelper::statusList(),
+        [
+            'prompt' => 'Выберите'
+        ]
+    ) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

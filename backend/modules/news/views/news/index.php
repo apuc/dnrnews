@@ -1,9 +1,9 @@
 <?php
 
-use yii\helpers\Html;
-use yii\helpers\Url;
+use common\helpers\StatusHelper;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\news\models\NewsSearch */
@@ -18,21 +18,31 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить новость', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-//            'id',
             'title',
-            'photo',
+            [
+                'attribute' => 'logo',
+                'format' => 'html',
+                'label' => 'photo',
+                'value' => function ($data) {
+                    return Html::img('/photo/' . $data->photo,
+                        ['width' => '80px',
+                            'height' => '80px']);
+                },
+            ],
             'news_body:ntext',
-            'status',
-            //'created_at',
-            //'updated_at',
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'filter' => StatusHelper::statusList(),
+                'value' => function($model){
+                    return StatusHelper::statusLabel($model->status);
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
             ],

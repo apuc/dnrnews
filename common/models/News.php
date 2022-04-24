@@ -2,8 +2,10 @@
 
 namespace common\models;
 
+use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "news".
@@ -23,7 +25,7 @@ use yii\db\ActiveRecord;
  */
 class News extends ActiveRecord
 {
-    public $imageFile;
+    public $image;
 
     /**
      * {@inheritdoc}
@@ -53,20 +55,54 @@ class News extends ActiveRecord
         return [
             [['news_body'], 'string'],
             [['status', 'created_at', 'updated_at', 'views'], 'integer'],
-//            [['created_at', 'updated_at'], 'required'],
             [['title'], 'string', 'max' => 255],
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['image'], 'safe'],
+            [['image'], 'file', 'extensions' => 'jpg, gif, png'],
         ];
     }
 
-    public function upload()
+    public function afterDelete()
     {
-        if ($this->validate()) {
-            $this->imageFile->saveAs('uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
-            return true;
-        } else {
+        @unlink(Yii::getAlias('@newsImage') . $this->photo);
+        parent::afterDelete();
+    }
+
+    public function getImageurl()
+    {
+        return \Yii::$app->request->BaseUrl . '/photo' . '/'. $this->photo;
+    }
+
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        if(!parent::beforeSave($insert)) {
             return false;
         }
+
+        if (UploadedFile::getInstance($this, 'image')) {
+            if (!$insert) {
+                @unlink(Yii::getAlias('@newsImage') . $this->getOldAttribute('photo'));
+            }
+
+            $image = UploadedFile::getInstance($this, 'image');
+            $imageName = md5(date("Y-m-d H:i:s"));
+            $pathImage = Yii::getAlias('@newsImage')
+                . '/'
+                . $imageName
+                . '.'
+                . $image->getExtension();
+
+            $this->photo =  $imageName .  '.' . $image->getExtension();
+            $image->saveAs($pathImage);
+
+        } else {
+            $this->photo = $this->getOldAttribute('image');
+        }
+        return true;
     }
 
     /**

@@ -14,7 +14,7 @@ class News extends \common\models\News implements Linkable
             'id',
             'title',
             'published_date' => function () {
-                return  $this->created_at;
+                return $this->created_at;
             },
             'views'
         ];
@@ -28,7 +28,9 @@ class News extends \common\models\News implements Linkable
             'comments_count' => function () {
                 return (int)$this->getCommentsCount();
             },
-            'photo',
+            'photo' => function () {
+                return $this->getPhotoLink();
+            },
             'news_body',
             'like' => function () {
                 return (int)$this->getLikesCount();
@@ -37,6 +39,14 @@ class News extends \common\models\News implements Linkable
                 return $this->category;
             },
         ];
+    }
+
+    public function getPhotoLink()
+    {
+        if (empty($this->photo)) {
+            return 'N/A';
+        }
+        return '/uploads/news-image/' . $this->photo;
     }
 
     public function getTags(): ActiveQuery
