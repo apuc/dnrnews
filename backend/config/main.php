@@ -28,6 +28,11 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'baseUrl' => '/secure',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+                'text/xml' => 'yii/web/XmlParser',
+            ],
         ],
         'user' => [
             'class' => 'yii\web\User',
