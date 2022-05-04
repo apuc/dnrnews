@@ -63,7 +63,10 @@ class News extends ActiveRecord
 
     public function afterDelete()
     {
-        @unlink(Yii::getAlias('@newsImage') . $this->photo);
+        if (is_file(Yii::getAlias('@newsImage') . '/' . $this->photo)) {
+            unlink(Yii::getAlias('@newsImage') . '/' . $this->photo);
+        }
+
         parent::afterDelete();
     }
 
