@@ -37,10 +37,10 @@
     </tr>
     <tr>
         <td>
-            api/news/find-by-date
+            api/news/filter
         </td>
         <td>
-            Поиск новостей по дате
+            Фильтрация новостей
         </td>
     </tr>
 </table>
@@ -252,7 +252,7 @@
 `http://dnrone.loc/api/news/find`
 <p>
     Для поиска новостей необходимо отправить <b>GET</b> запрос на URL http://dnrone.loc/api/news/find
-    При передаче запроса без параметров title и text будет возвращен список всех новостей.
+    При передаче запроса без параметра text будет возвращен список всех новостей.
 </p>
 <p>
     Возможные параметры:
@@ -268,18 +268,10 @@
     </tr>
     <tr>
         <td>
-            title
-        </td>
-        <td>
-            Текст для поиска по заголовкам статей
-        </td>
-    </tr>
-    <tr>
-        <td>
             text
         </td>
         <td>
-            Текст для поиска по телу новостей
+            Текст поиска по заголовкам и телу новостей
         </td>
     </tr>
     <tr>
@@ -296,7 +288,7 @@
     Пример запроса:
 </p>
 
-`http://dnrone.loc/api/news/find?title=as&text=4444&expand=tags,comments,photo,news_body,like,category`
+`http://dnrone.loc/api/news/find?text=555&expand=tags,comments,photo,news_body,like,category`
 
 <p>
     Пример возвращаемых данных
@@ -306,54 +298,36 @@
 {
   "news": [
     {
-      "id": 12,
-      "title": "asdd",
-      "published_date": 1648378837,
+      "id": 79,
+      "title": "новость5555",
+      "published_date": 1651672584,
       "views": 0,
       "tags": [],
       "comments": [],
-      "photo": "pppp444444",
-      "news_body": "444444444444444 3456789hgvcxcv",
+      "photo": "/uploads/news-image/a5caa980cd8b0b84c56ffd2f4b6e3ea5.png",
+      "news_body": "рполь новость",
       "like": 0,
-      "category": 0,
+      "category": [],
       "_links": {
         "self": {
-          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=12"
-        }
-      }
-    },
-    '...',
-    {
-      "id": 48,
-      "title": "assxv",
-      "published_date": 1648378837,
-      "views": 0,
-      "tags": [],
-      "comments": [],
-      "photo": "pppp444444",
-      "news_body": "444444444444444 dfghjbk",
-      "like": 0,
-      "category": 0,
-      "_links": {
-        "self": {
-          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=48"
+          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=79"
         }
       }
     }
   ],
   "_links": {
     "self": {
-      "href": "http://dnrone.loc/api/news/find?title=as&text=4444&expand=tags%2Ccomments%2Cphoto%2Cnews_body%2Clike%2Ccategory&page=1"
+      "href": "http://dnrone.loc/api/news/find?text=555&expand=tags%2Ccomments%2Cphoto%2Cnews_body%2Clike%2Ccategory&page=1"
     },
     "first": {
-      "href": "http://dnrone.loc/api/news/find?title=as&text=4444&expand=tags%2Ccomments%2Cphoto%2Cnews_body%2Clike%2Ccategory&page=1"
+      "href": "http://dnrone.loc/api/news/find?text=555&expand=tags%2Ccomments%2Cphoto%2Cnews_body%2Clike%2Ccategory&page=1"
     },
     "last": {
-      "href": "http://dnrone.loc/api/news/find?title=as&text=4444&expand=tags%2Ccomments%2Cphoto%2Cnews_body%2Clike%2Ccategory&page=1"
+      "href": "http://dnrone.loc/api/news/find?text=555&expand=tags%2Ccomments%2Cphoto%2Cnews_body%2Clike%2Ccategory&page=1"
     }
   },
   "_meta": {
-    "totalCount": 4,
+    "totalCount": 1,
     "pageCount": 1,
     "currentPage": 1,
     "perPage": 20
@@ -361,12 +335,11 @@
 }
 ```
 
-### Поиск новостей по дате
+### Фильтр новостей
 
-`http://dnrone.loc/api/news/find-by-date`
+`http://dnrone.loc/api/news/filter`
 <p>
-    Для поиска новостей по дате публикации необходимо отправить <b>GET</b> запрос на URL http://dnrone.loc/api/news/find-by-date
-    При передаче параметра from_date будет будет произведен поиск по промежутку между датами.
+    Для фильтрации новостей отправить <b>GET</b> запрос на URL http://dnrone.loc/api/news/filter
 </p>
 <p>
     Возможные параметры:
@@ -379,9 +352,22 @@
         <th>
             Значение
         </th>
-        <th>
-            Обязателен
-        </th>
+    </tr>
+    <tr>
+        <td>
+            category(массив)
+        </td>
+        <td>
+            Массив категорий новости
+        </td>
+    </tr>
+    <tr>
+        <td>
+            tags(массив)
+        </td>
+        <td>
+            Массив тегов новости
+        </td>
     </tr>
     <tr>
         <td>
@@ -389,9 +375,6 @@
         </td>
         <td>
             Дата публикации
-        </td>
-        <td>
-            Да
         </td>
     </tr>
     <tr>
@@ -401,9 +384,6 @@
         <td>
             Начальная дата периода поиска
         </td>
-        <td>
-            Нет
-        </td>
     </tr>
     <tr>
         <td>
@@ -413,16 +393,13 @@
              Добавляет к данным: категории; данные закреплённых за ней тегов; коментарии; количество комментариев;
             тело новости; лайки; ссылку на фото новости
         </td>
-        <td>
-            Нет
-        </td>
     </tr>
 </table>
 <p>
     Пример запроса:
 </p>
 
-`http://dnrone.loc/api/news/find-by-date?published=1648369010&from_date=1648368999&expand=tags,comments,photo,news_body`
+`http://dnrone.loc/api/news/filter?published=1651672484&from_date=1651672384&category[0]=28&tags[0]=5&tags[1]=6`
 
 <p>
     Пример возвращаемых данных
@@ -432,42 +409,41 @@
 {
   "news": [
     {
-      "id": 5,
-      "title": "0055555",
-      "published_date": 1648368999,
+      "id": 82,
+      "title": "новость",
+      "published_date": 1651672474,
       "views": 0,
       "_links": {
         "self": {
-          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=5"
+          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=82"
         }
       }
     },
-    '...',
     {
-      "id": 9,
-      "title": "09999999",
-      "published_date": 1648369010,
+      "id": 83,
+      "title": "новость",
+      "published_date": 1651672484,
       "views": 0,
       "_links": {
         "self": {
-          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=9"
+          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=83"
         }
       }
     }
   ],
   "_links": {
     "self": {
-      "href": "http://dnrone.loc/api/news/find-by-date?published=1648369010&from_date=1648368999&page=1"
+      "href": "http://dnrone.loc/api/news/filter?published=1651672484&from_date=1651672384&page=1"
     },
     "first": {
-      "href": "http://dnrone.loc/api/news/find-by-date?published=1648369010&from_date=1648368999&page=1"
+      "href": "http://dnrone.loc/api/news/filter?published=1651672484&from_date=1651672384&page=1"
     },
     "last": {
-      "href": "http://dnrone.loc/api/news/find-by-date?published=1648369010&from_date=1648368999&page=1"
+      "href": "http://dnrone.loc/api/news/filter?published=1651672484&from_date=1651672384&page=1"
     }
   },
   "_meta": {
-    "totalCount": 5,
+    "totalCount": 2,
     "pageCount": 1,
     "currentPage": 1,
     "perPage": 20

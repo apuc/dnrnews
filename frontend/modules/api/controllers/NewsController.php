@@ -47,17 +47,22 @@ class NewsController extends ApiController
         ]);
     }
 
-    public function actionFind($title = null, $text = null): ActiveDataProvider
+    public function actionFind($text = null): ActiveDataProvider
     {
         return new ActiveDataProvider([
-            'query' => NewsService::findNews($title, $text),
+            'query' => NewsService::findNews($text),
         ]);
     }
 
-    public function actionFindByDate(int $published, int $from_date = null): ActiveDataProvider
+    public function actionFilter(
+        array $category = null,
+        array $tags = null,
+        int $published = null,
+        int $from_date = null
+    ): ActiveDataProvider
     {
         return new ActiveDataProvider([
-            'query' => NewsService::findNewsByDate($published, $from_date),
+            'query' => NewsService::filter($category, $tags, $published, $from_date),
         ]);
     }
 }

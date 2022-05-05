@@ -8,28 +8,38 @@ use yii\db\StaleObjectException;
 
 class NewsService
 {
-    public static function findNewsByDate($published, $from_date): ActiveQuery
+    public static function filter($category, $tags, $published, $from_date): ActiveQuery
     {
         $query = News::find();
 
-        if (empty($from_date)) {
-            $query->where(['like', 'created_at', $published]);
-        } else {
-            $query->where(['between', 'created_at', $from_date, $published]);
+        if (!empty($category)) {
+            $query->joinWith(['categoryNews'])
+                ->andWhere(['category_news.category_id' => $category]);
         }
+
+        if (!empty($tags)) {
+            $query->joinWith(['newsTag'])
+                ->andWhere(['news_tag.tag_id' => $tags]);
+        }
+
+        if (!empty($published)) {
+            if (empty($from_date)) {
+                $query->andWhere(['like', 'news.created_at', $published]);
+            } else {
+                $query->andWhere(['between', 'news.created_at', $from_date, $published]);
+            }
+        }
+
         return $query;
     }
 
-    public static function findNews($title, $text): ActiveQuery
+    public static function findNews($text): ActiveQuery
     {
         $query = News::find();
 
-        if (!empty($title)) {
-            $query->filterWhere(['like', 'title', $title]);
-        }
-
         if (!empty($text)) {
-            $query->andFilterWhere(['like', 'news_body', $text]);
+            $query->where(['like', 'title', $text]);
+            $query->orWhere(['like', 'news_body', $text]);
         }
 
         return $query;

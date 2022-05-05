@@ -72,7 +72,7 @@ class News extends ActiveRecord
 
     public function getImageurl()
     {
-        return \Yii::$app->request->BaseUrl . '/photo' . '/'. $this->photo;
+        return \Yii::$app->request->BaseUrl . '/photo' . '/' . $this->photo;
     }
 
 
@@ -82,7 +82,7 @@ class News extends ActiveRecord
      */
     public function beforeSave($insert)
     {
-        if(!parent::beforeSave($insert)) {
+        if (!parent::beforeSave($insert)) {
             return false;
         }
 
@@ -99,7 +99,7 @@ class News extends ActiveRecord
                 . '.'
                 . $image->getExtension();
 
-            $this->photo =  $imageName .  '.' . $image->getExtension();
+            $this->photo = $imageName . '.' . $image->getExtension();
             $image->saveAs($pathImage);
 
         } else {
@@ -133,6 +133,11 @@ class News extends ActiveRecord
     public function getCategoryNews()
     {
         return $this->hasMany(CategoryNews::className(), ['news_id' => 'id']);
+    }
+
+    public function getNewsTag()
+    {
+        return $this->hasMany(NewsTag::className(), ['news_id' => 'id']);
     }
 
     public function getCategory()
