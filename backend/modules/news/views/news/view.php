@@ -2,6 +2,7 @@
 
 use common\helpers\StatusHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -36,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'label' => 'photo',
                 'value' => function ($data) {
-                    return Html::img('/photo/' . $data->photo,
+                    return Html::img(Url::base() . '/photo/' . $data->photo,
                         ['width' => '80px',
                             'height' => '80px']);
                 },

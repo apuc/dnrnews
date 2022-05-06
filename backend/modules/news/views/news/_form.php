@@ -32,7 +32,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'status')->dropDownList(
         StatusHelper::statusList(),
         [
-            'prompt' => 'Выберите'
+            'options' => [
+                1 => ['selected' => true]
+            ]
         ]
     ) ?>
 

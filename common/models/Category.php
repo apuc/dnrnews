@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -46,7 +45,6 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             [['status', 'created_at', 'updated_at'], 'integer'],
-//            [['created_at', 'updated_at'], 'required'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -60,8 +58,8 @@ class Category extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Название',
             'status' => 'Статус',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата изменения',
         ];
     }
 

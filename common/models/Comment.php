@@ -2,9 +2,7 @@
 
 namespace common\models;
 
-use Yii;
 use yii\behaviors\TimestampBehavior;
-use yii\db\Expression;
 
 /**
  * This is the model class for table "comment".
@@ -63,12 +61,12 @@ class Comment extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'news_id' => 'News ID',
-            'comment_body' => 'Comment Body',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'user_id' => 'Пользователь',
+            'news_id' => 'Новость',
+            'comment_body' => 'Комментарий',
+            'status' => 'Статус',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата изменения',
         ];
     }
 

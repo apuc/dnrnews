@@ -3,11 +3,9 @@
 namespace frontend\modules\api\controllers;
 
 use common\services\CommentService;
-use common\services\NewsService;
 use common\services\ResponseService;
 use frontend\modules\api\models\Comment;
 use Yii;
-use yii\base\BaseObject;
 use yii\data\ActiveDataProvider;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;

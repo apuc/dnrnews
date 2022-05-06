@@ -57,7 +57,7 @@ class News extends ActiveRecord
             [['status', 'created_at', 'updated_at', 'views'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['image'], 'safe'],
-            [['image'], 'file', 'extensions' => 'jpg, gif, png'],
+            [['image'], 'file', 'extensions' => 'jpg, gif, png, webp, jpeg'],
         ];
     }
 
@@ -119,8 +119,8 @@ class News extends ActiveRecord
             'photo' => 'Фото',
             'news_body' => 'Текст новости',
             'status' => 'Статус',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата изменения',
             'views' => 'Просмотры'
         ];
     }

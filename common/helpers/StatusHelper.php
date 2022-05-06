@@ -9,13 +9,13 @@ use Exception;
 class StatusHelper
 {
     const STATUS_PASSIVE = 0;
-    const STATUS_ACTIVE = 1;
+    const STATUS_ACTIVE = 10;
 
     public static function statusList() :array
     {
         return [
-            self::STATUS_PASSIVE => 'Не активна',
-            self::STATUS_ACTIVE => 'Активна'
+            self::STATUS_PASSIVE => 'Не активен',
+            self::STATUS_ACTIVE => 'Активен'
         ];
     }
 

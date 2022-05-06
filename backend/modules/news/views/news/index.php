@@ -4,6 +4,7 @@ use common\helpers\StatusHelper;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\news\models\NewsSearch */
@@ -25,14 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'title',
             [
-                'attribute' => 'logo',
+                'attribute' => 'photo',
                 'format' => 'html',
-                'label' => 'photo',
                 'value' => function ($data) {
-                    return Html::img('/photo/' . $data->photo,
+                    return Html::img(Url::base() . '/photo/' . $data->photo,
                         ['width' => '80px',
                             'height' => '80px']);
                 },
+                'contentOptions' => ['style'=>'text-align:center'],
             ],
             'news_body:ntext',
             [

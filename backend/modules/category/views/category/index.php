@@ -1,9 +1,9 @@
 <?php
 
-use yii\helpers\Html;
-use yii\helpers\Url;
+use common\helpers\StatusHelper;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\category\models\CategorySearch */
@@ -26,11 +26,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-//            'id',
             'title',
-            'status',
-//            'created_at',
-//            'updated_at',
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'filter' => StatusHelper::statusList(),
+                'value' => function($model){
+                    return StatusHelper::statusLabel($model->status);
+                }
+            ],
+//            [
+//                'attribute' => 'created_at',
+//                'format' => ['datetime', 'php:d.m.Y H:i:s']
+//            ],
+//            [
+//                'attribute' => 'updated_at',
+//                'format' => ['datetime', 'php:d.m.Y H:i:s']
+//            ],
             [
                 'class' => ActionColumn::className(),
             ],

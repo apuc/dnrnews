@@ -1,9 +1,11 @@
 <?php
 
-use yii\helpers\Html;
-use yii\helpers\Url;
+use backend\modules\news\models\News;
+use common\helpers\StatusHelper;
+use common\models\User;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\comment\models\CommentSearch */
@@ -15,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="comment-index">
 
     <p>
-        <?= Html::a('Create Comment', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать комментарий', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,13 +28,33 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-//            'id',
-            'user_id',
-            'news_id',
+            [
+                'attribute' => 'user_id',
+                'filter' => User::find()->select(['username', 'id'])->indexBy('id')->column(),
+                'value' => 'user.username'
+            ],
+            [
+                'attribute' => 'news_id',
+                'filter' => News::find()->select(['title', 'id'])->indexBy('id')->column(),
+                'value' => 'news.title'
+            ],
             'comment_body',
-            'status',
-            //'created_at',
-            //'updated_at',
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'filter' => StatusHelper::statusList(),
+                'value' => function ($model) {
+                    return StatusHelper::statusLabel($model->status);
+                }
+            ],
+//            [
+//                'attribute' => 'created_at',
+//                'format' => ['datetime', 'php:d.m.Y H:i:s']
+//            ],
+//            [
+//                'attribute' => 'updated_at',
+//                'format' => ['datetime', 'php:d.m.Y H:i:s']
+//            ],
             [
                 'class' => ActionColumn::className(),
             ],

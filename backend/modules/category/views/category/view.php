@@ -1,5 +1,6 @@
 <?php
 
+use common\helpers\StatusHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\helpers\UnixTimeConverter;
@@ -13,8 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="category-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Список', ['index'], ['class' => 'btn btn-primary']) ?>
@@ -33,7 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'title',
-            'status',
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => StatusHelper::statusLabel($model->status),
+            ],
             [
                 'attribute' => 'created_at',
                 'value' => function ($model) {
