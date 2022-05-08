@@ -5,6 +5,7 @@ namespace backend\modules\category\controllers;
 use andrewdanilov\adminpanel\controllers\BackendController;
 use backend\modules\category\models\Category;
 use backend\modules\category\models\CategorySearch;
+use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -36,8 +37,17 @@ class CategoryController extends BackendController
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $categoryTagDataProvider = new ActiveDataProvider([
+            'query' => $model->getCategoryTags(),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'categoryTagDataProvider' => $categoryTagDataProvider,
         ]);
     }
 
@@ -52,7 +62,7 @@ class CategoryController extends BackendController
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['category-tag/create', 'category_id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();

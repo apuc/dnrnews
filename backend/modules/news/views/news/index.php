@@ -1,7 +1,6 @@
 <?php
 
 use common\helpers\StatusHelper;
-use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -45,7 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'class' => ActionColumn::className(),
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {delete}',
             ],
         ],
     ]); ?>

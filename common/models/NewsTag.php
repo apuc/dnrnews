@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "news_tag".
@@ -10,7 +10,6 @@ use Yii;
  * @property int $id
  * @property int|null $tag_id
  * @property int|null $news_id
- * @property int $status
  * @property int $created_at
  * @property int $updated_at
  *
@@ -27,14 +26,26 @@ class NewsTag extends \yii\db\ActiveRecord
         return 'news_tag';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => time(),
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['tag_id', 'news_id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
+            [['tag_id', 'news_id', 'created_at', 'updated_at'], 'integer'],
+            [['tag_id', 'news_id'], 'unique', 'targetAttribute' => ['tag_id', 'news_id']],
             [['news_id'], 'exist', 'skipOnError' => true, 'targetClass' => News::className(), 'targetAttribute' => ['news_id' => 'id']],
             [['tag_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tag::className(), 'targetAttribute' => ['tag_id' => 'id']],
         ];
@@ -49,7 +60,6 @@ class NewsTag extends \yii\db\ActiveRecord
             'id' => 'ID',
             'tag_id' => 'Tag ID',
             'news_id' => 'News ID',
-            'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

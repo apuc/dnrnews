@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "category_tag".
@@ -10,7 +10,6 @@ use Yii;
  * @property int $id
  * @property int|null $tag_id
  * @property int|null $category_id
- * @property int $status
  * @property int $created_at
  * @property int $updated_at
  *
@@ -27,14 +26,27 @@ class CategoryTag extends \yii\db\ActiveRecord
         return 'category_tag';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => time(),
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['tag_id', 'category_id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
+            [['tag_id', 'category_id', 'created_at', 'updated_at'], 'integer'],
+            [['tag_id'], 'required'],
+            [['tag_id', 'category_id'], 'unique', 'targetAttribute' => ['tag_id', 'category_id']],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['tag_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tag::className(), 'targetAttribute' => ['tag_id' => 'id']],
         ];
@@ -47,11 +59,10 @@ class CategoryTag extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'tag_id' => 'Tag ID',
-            'category_id' => 'Category ID',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'tag_id' => 'Тег',
+            'category_id' => 'Категория',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата изменения',
         ];
     }
 

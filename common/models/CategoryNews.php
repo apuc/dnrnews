@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "category_news".
@@ -10,7 +10,6 @@ use Yii;
  * @property int $id
  * @property int|null $news_id
  * @property int|null $category_id
- * @property int $status
  * @property int $created_at
  * @property int $updated_at
  *
@@ -27,14 +26,26 @@ class CategoryNews extends \yii\db\ActiveRecord
         return 'category_news';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => time(),
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['news_id', 'category_id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
+            [['news_id', 'category_id', 'created_at', 'updated_at'], 'integer'],
+            [['news_id', 'category_id'], 'unique', 'targetAttribute' => ['news_id', 'category_id']],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['news_id'], 'exist', 'skipOnError' => true, 'targetClass' => News::className(), 'targetAttribute' => ['news_id' => 'id']],
         ];
@@ -47,11 +58,10 @@ class CategoryNews extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'news_id' => 'News ID',
-            'category_id' => 'Category ID',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'news_id' => 'Новость',
+            'category_id' => 'Категория',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата изменения',
         ];
     }
 

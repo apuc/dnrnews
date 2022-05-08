@@ -5,9 +5,10 @@ namespace backend\modules\news\controllers;
 use andrewdanilov\adminpanel\controllers\BackendController;
 use backend\modules\news\models\News;
 use backend\modules\news\models\NewsSearch;
+use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
-use yii\web\UploadedFile;
 
 /**
  * NewsController implements the CRUD actions for News model.
@@ -56,8 +57,24 @@ class NewsController extends BackendController
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $categoryNewsDataProvider = new ActiveDataProvider([
+            'query' => $model->getCategoryNews(),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+        $newsTagDataProvider = new ActiveDataProvider([
+            'query' => $model->getNewsTags(),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'categoryNewsDataProvider' => $categoryNewsDataProvider,
+            'newsTagDataProvider' => $newsTagDataProvider,
         ]);
     }
 
@@ -93,6 +110,9 @@ class NewsController extends BackendController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+        $model->image = file_get_contents(Yii::getAlias('@newsImage') . '/' . $model->photo);
+//            UploadedFile::getInstance($model, 'image');
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
