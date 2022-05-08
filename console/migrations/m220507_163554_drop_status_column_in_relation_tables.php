@@ -22,9 +22,9 @@ class m220507_163554_drop_status_column_in_relation_tables extends Migration
      */
     public function safeDown()
     {
-        $this->addColumn('category_news', 'status', $this->smallInteger()->defaultValue(10),);
-        $this->addColumn('category_tag', 'status', $this->smallInteger()->defaultValue(10),);
-        $this->addColumn('news_tag', 'status', $this->smallInteger()->defaultValue(10),);
+        $this->addColumn('category_news', 'status', $this->smallInteger()->defaultValue(10));
+        $this->addColumn('category_tag', 'status', $this->smallInteger()->defaultValue(10));
+        $this->addColumn('news_tag', 'status', $this->smallInteger()->defaultValue(10));
     }
 
     /*
