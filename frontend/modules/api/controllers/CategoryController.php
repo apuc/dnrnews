@@ -4,7 +4,6 @@ namespace frontend\modules\api\controllers;
 
 use common\services\ResponseService;
 use frontend\modules\api\models\Category;
-use Yii;
 
 class CategoryController extends ApiController
 {
@@ -22,12 +21,17 @@ class CategoryController extends ApiController
         if ($category_id) {
             $response = ResponseService::successResponse(
                 'One category.',
-                Category::findOne($category_id)
+                Category::find()
+                    ->where(['id' => $category_id])
+                    ->andWhere(['category.status' => Category::STATUS_ACTIVE])
+                    ->one()
             );
         } else {
             $response = ResponseService::successResponse(
                 'Category list.',
-                Category::find()->all()
+                Category::find()
+                    ->where(['category.status' => Category::STATUS_ACTIVE])
+                    ->all()
             );
         }
 

@@ -22,12 +22,17 @@ class TagController extends ApiController
         if ($tag_id) {
             $response = ResponseService::successResponse(
                 'One tag.',
-                Tag::findOne($tag_id)
+                Tag::find()
+                    ->where(['id' => $tag_id])
+                    ->andWhere(['status' => Tag::STATUS_ACTIVE])
+                    ->one()
             );
         } else {
             $response = ResponseService::successResponse(
                 'Tag list.',
-                Tag::find()->all()
+                Tag::find()
+                    ->where(['status' => Tag::STATUS_ACTIVE])
+                    ->all()
             );
         }
 

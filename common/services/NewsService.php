@@ -10,7 +10,7 @@ class NewsService
 {
     public static function filter($category, $tags, $published, $from_date): ActiveQuery
     {
-        $query = News::find();
+        $query = News::find()->where(['news.status' => News::STATUS_ACTIVE]);
 
         if (!empty($category)) {
             $query->joinWith(['categoryNews'])
@@ -41,13 +41,14 @@ class NewsService
             $query->where(['like', 'title', $text]);
             $query->orWhere(['like', 'news_body', $text]);
         }
+        $query->andWhere(['news.status' => News::STATUS_ACTIVE]);
 
         return $query;
     }
 
     public static function getNewsList(array $category_id = null, array $tags_id = null): ActiveQuery
     {
-        $query = News::find();
+        $query = News::find()->where(['news.status' => News::STATUS_ACTIVE]);
         $query->distinct()
             ->joinWith(['category', 'tags']);
 
@@ -78,6 +79,10 @@ class NewsService
     public static function getNews($news_id): ?News
     {
         $news = News::findOne($news_id);
+
+        if ($news->status != News::STATUS_ACTIVE) {
+            return null;
+        }
         self::addView($news);
         return $news;
     }

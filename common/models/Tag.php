@@ -19,6 +19,9 @@ use yii\behaviors\TimestampBehavior;
  */
 class Tag extends \yii\db\ActiveRecord
 {
+    const STATUS_PASSIVE = 0;
+    const STATUS_ACTIVE = 10;
+
     /**
      * {@inheritdoc}
      */

@@ -27,6 +27,9 @@ class News extends ActiveRecord
 {
     public $image;
 
+    const STATUS_PASSIVE = 0;
+    const STATUS_ACTIVE = 10;
+
     /**
      * {@inheritdoc}
      */

@@ -47,7 +47,10 @@ class CommentController extends ApiController
     {
         $response = ResponseService::successResponse(
             'One comment.',
-            Comment::findOne($comment_id)
+            Comment::find()
+                ->where(['id' => $comment_id])
+                ->andWhere(['status' => Comment::STATUS_ACTIVE])
+                ->one()
         );
 
         if (empty($response['data'])) {
