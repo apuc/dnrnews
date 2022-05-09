@@ -14,7 +14,8 @@ class CommentService
     public static function commentsNews($request)//: array
     {
         $news_id = $request->get('news_id');
-        $commentsArray = Comment::find()->where(['news_id' => $news_id]);//->all();
+        $commentsArray = Comment::find()->where(['news_id' => $news_id])
+            ->andWhere(['status' => Comment::STATUS_ACTIVE]);//->all();
 
 //        $user_id = null;
 //        if ($request->getHeaders()->get('Authorization')) {

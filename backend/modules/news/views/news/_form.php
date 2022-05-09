@@ -3,6 +3,7 @@
 use common\helpers\StatusHelper;
 use kartik\file\FileInput;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -16,14 +17,20 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?=  $form->field($model, 'image')->widget(FileInput::classname(), [
+    <?= $form->field($model, 'image')->widget(FileInput::classname(), [
         'pluginOptions' => [
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,
             'browseClass' => 'btn btn-primary btn-block',
             'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
-            'browseLabel' =>  'Select Photo'
+            'browseLabel' => 'Select Photo',
+            'initialPreview' => Html::img(
+                Url::base() . '/photo/' . $model->photo,
+                [
+                    'width' => "100%", 'height' => "100%"
+                ]),
+            'overwriteInitial' => true
         ],
     ]); ?>
 

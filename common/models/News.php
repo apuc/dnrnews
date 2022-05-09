@@ -91,7 +91,7 @@ class News extends ActiveRecord
 
         if (UploadedFile::getInstance($this, 'image')) {
             if (!$insert) {
-                @unlink(Yii::getAlias('@newsImage') . $this->getOldAttribute('photo'));
+                @unlink(Yii::getAlias('@newsImage') . '/' . $this->getOldAttribute('photo'));
             }
 
             $image = UploadedFile::getInstance($this, 'image');
