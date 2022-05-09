@@ -106,7 +106,7 @@ class News extends ActiveRecord
             $image->saveAs($pathImage);
 
         } else {
-            $this->photo = $this->getOldAttribute('image');
+            $this->photo = $this->getOldAttribute('photo');
         }
         return true;
     }
