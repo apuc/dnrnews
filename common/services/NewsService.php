@@ -10,7 +10,8 @@ class NewsService
 {
     public static function filter($category, $tags, $published, $from_date): ActiveQuery
     {
-        $query = News::find()->where(['news.status' => News::STATUS_ACTIVE]);
+        $query = News::find()->where(['news.status' => News::STATUS_ACTIVE])
+            ->orderBy('created_at DESC');
 
         if (!empty($category)) {
             $query->joinWith(['categoryNews'])
@@ -35,7 +36,7 @@ class NewsService
 
     public static function findNews($text): ActiveQuery
     {
-        $query = News::find();
+        $query = News::find()->orderBy('created_at DESC');
 
         if (!empty($text)) {
             $query->where(['like', 'title', $text]);
