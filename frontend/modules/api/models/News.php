@@ -2,6 +2,7 @@
 
 namespace frontend\modules\api\models;
 
+use common\models\EventType;
 use yii\db\ActiveQuery;
 use yii\helpers\Url;
 use yii\web\Linkable;
@@ -16,7 +17,10 @@ class News extends \common\models\News implements Linkable
             'published_date' => function () {
                 return $this->created_at;
             },
-            'views'
+            'views',
+            'coordinates',
+            'event',
+            'is_map_event',
         ];
     }
 
@@ -73,5 +77,10 @@ class News extends \common\models\News implements Linkable
         return [
             'self' => $string,
         ];
+    }
+
+    public function getEvent()
+    {
+        return $this->hasOne(EventType::class, ['id' => 'event_type_id']);
     }
 }
