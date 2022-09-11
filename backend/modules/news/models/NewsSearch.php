@@ -68,6 +68,8 @@ class NewsSearch extends News
             ->andFilterWhere(['like', 'photo', $this->photo])
             ->andFilterWhere(['like', 'news_body', $this->news_body]);
 
+        $query->orderBy('id DESC');
+
         return $dataProvider;
     }
 }
