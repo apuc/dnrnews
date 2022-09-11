@@ -57,8 +57,8 @@ class News extends ActiveRecord
     {
         return [
             [['news_body'], 'string'],
-            [['status', 'created_at', 'updated_at', 'views'], 'integer'],
-            [['title'], 'string', 'max' => 255],
+            [['status', 'created_at', 'updated_at', 'views', 'event_type_id', 'is_map_event'], 'integer'],
+            [['title', 'coordinates'], 'string', 'max' => 255],
             [['image'], 'safe'],
             [['image'], 'file', 'extensions' => 'jpg, gif, png, webp, jpeg'],
         ];
@@ -124,7 +124,10 @@ class News extends ActiveRecord
             'status' => 'Статус',
             'created_at' => 'Дата создания',
             'updated_at' => 'Дата изменения',
-            'views' => 'Просмотры'
+            'views' => 'Просмотры',
+            'coordinates' => 'Координаты на карте',
+            'event_type_id' => 'Тип события',
+            'is_map_event' => 'Добавить на карту',
         ];
     }
 

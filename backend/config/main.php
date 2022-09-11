@@ -23,7 +23,10 @@ return [
         ],
         'news' => [
             'class' => 'backend\modules\news\News',
-        ]
+        ],
+        'event_type' => [
+            'class' => 'backend\modules\event_type\EventTypeModule',
+        ],
     ],
     'components' => [
         'request' => [

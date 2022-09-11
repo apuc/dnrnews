@@ -20,5 +20,6 @@ use andrewdanilov\adminpanel\widgets\Menu;
         ['label' => 'Comment', 'url' => ['/comment/comment'], 'icon' => 'comments'],
         [],
 		['label' => 'Users', 'url' => ['/user/index'], 'icon' => 'users'],
+        ['label' => 'Типы событий', 'url' => ['/event_type/event-type'], 'icon' => 'calendar'],
 	]]) ?>
 </div>

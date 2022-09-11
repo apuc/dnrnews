@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "tag".
@@ -85,5 +86,10 @@ class Tag extends \yii\db\ActiveRecord
     public function getNewsTags()
     {
         return $this->hasMany(NewsTag::className(), ['tag_id' => 'id']);
+    }
+
+    public static function getList()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'title');
     }
 }
