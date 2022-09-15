@@ -2,7 +2,7 @@
 
 namespace frontend\modules\api\models;
 
-use common\models\EventType;
+use frontend\modules\api\models\EventType;
 use yii\db\ActiveQuery;
 use yii\helpers\Url;
 use yii\web\Linkable;

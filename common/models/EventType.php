@@ -86,12 +86,6 @@ class EventType extends \yii\db\ActiveRecord
         return true;
     }
 
-    public function afterFind()
-    {
-        $this->icon = '/uploads/news-image/icon/' . $this->icon;
-        parent::afterFind();
-    }
-
     public static function getList()
     {
         return ArrayHelper::map(self::find()->all(), 'id', 'title');

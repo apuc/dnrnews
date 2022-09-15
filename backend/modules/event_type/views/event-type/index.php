@@ -29,7 +29,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 //            'id',
             'title',
-            'icon',
+            [
+                'attribute' => 'icon',
+                'format' => 'html',
+                'value' => function ($data) {
+                    return Html::img(Url::base() . '/photo/icon/' . $data->icon,
+                        ['width' => '80px',
+                            'height' => '80px']);
+                },
+                'contentOptions' => ['style'=>'text-align:center'],
+            ],
             'status',
             [
                 'class' => ActionColumn::className(),
