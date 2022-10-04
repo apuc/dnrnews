@@ -43,3 +43,7 @@ phpunit.phar
 /backend/web/robots.txt
 /backend/web/photo
 /frontend/web/uploads
+
+
+frontend-access.log
+frontend-error.log

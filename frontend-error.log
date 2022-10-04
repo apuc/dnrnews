@@ -24,3 +24,28 @@ Stack trace:
 2022/04/25 00:13:00 [error] 873#873: *708 directory index of "/var/www/dnrone/backend/web/photo/" is forbidden, client: 127.0.0.1, server: backend.dnrone.loc, request: "GET /photo/ HTTP/1.1", host: "backend.dnrone.loc", referrer: "http://backend.dnrone.loc/news/news"
 2022/04/25 00:13:33 [error] 873#873: *715 directory index of "/var/www/dnrone/backend/web/photo/" is forbidden, client: 127.0.0.1, server: backend.dnrone.loc, request: "GET /photo/ HTTP/1.1", host: "backend.dnrone.loc", referrer: "http://backend.dnrone.loc/news/news"
 2022/04/25 00:14:51 [error] 873#873: *730 directory index of "/var/www/dnrone/backend/web/photo/" is forbidden, client: 127.0.0.1, server: backend.dnrone.loc, request: "GET /photo/ HTTP/1.1", host: "backend.dnrone.loc", referrer: "http://backend.dnrone.loc/news/news/index?id=75"
+2022/10/04 11:10:43 [error] 3986#3986: *24 FastCGI sent in stderr: "PHP message: An Error occurred while handling another error:
+yii\web\ForbiddenHttpException: Login Required in /var/www/dnrnews/vendor/yiisoft/yii2/web/User.php:461
+Stack trace:
+#0 /var/www/dnrnews/vendor/andrewdanilov/yii2-admin-panel/src/controllers/BackendController.php(35): yii\web\User->loginRequired()
+#1 [internal function]: andrewdanilov\adminpanel\controllers\BackendController->andrewdanilov\adminpanel\controllers\{closure}()
+#2 /var/www/dnrnews/vendor/yiisoft/yii2/filters/AccessControl.php(138): call_user_func()
+#3 /var/www/dnrnews/vendor/yiisoft/yii2/base/ActionFilter.php(77): yii\filters\AccessControl->beforeAction()
+#4 [internal function]: yii\base\ActionFilter->beforeFilter()
+#5 /var/www/dnrnews/vendor/yiisoft/yii2/base/Component.php(633): call_user_func()
+#6 /var/www/dnrnews/vendor/yiisoft/yii2/base/Controller.php(297): yii\base\Component->trigger()
+#7 /var/www/dnrnews/vendor/yiisoft/yii2/web/Controller.php(218): yii\base\Controller->beforeAction()
+#8 /var/www/dnrnews/vendor/yiisoft/" while reading upstream, client: 127.0.0.1, server: backend.dnrnews.loc, request: "GET /secure/assets/d163753/css/style.css HTTP/1.1", upstream: "fastcgi://unix:/run/php/php-fpm.sock:", host: "backend.dnrnews.loc", referrer: "http://backend.dnrnews.loc/secure/user/login"
+2022/10/04 11:10:43 [error] 3986#3986: *20 FastCGI sent in stderr: "PHP message: An Error occurred while handling another error:
+yii\web\ForbiddenHttpException: Login Required in /var/www/dnrnews/vendor/yiisoft/yii2/web/User.php:461
+Stack trace:
+#0 /var/www/dnrnews/vendor/andrewdanilov/yii2-admin-panel/src/controllers/BackendController.php(35): yii\web\User->loginRequired()
+#1 [internal function]: andrewdanilov\adminpanel\controllers\BackendController->andrewdanilov\adminpanel\controllers\{closure}()
+#2 /var/www/dnrnews/vendor/yiisoft/yii2/filters/AccessControl.php(138): call_user_func()
+#3 /var/www/dnrnews/vendor/yiisoft/yii2/base/ActionFilter.php(77): yii\filters\AccessControl->beforeAction()
+#4 [internal function]: yii\base\ActionFilter->beforeFilter()
+#5 /var/www/dnrnews/vendor/yiisoft/yii2/base/Component.php(633): call_user_func()
+#6 /var/www/dnrnews/vendor/yiisoft/yii2/base/Controller.php(297): yii\base\Component->trigger()
+#7 /var/www/dnrnews/vendor/yiisoft/yii2/web/Controller.php(218): yii\base\Controller->beforeAction()
+#8 /var/www/dnrnews/vendor/yiisoft/" while reading upstream, client: 127.0.0.1, server: backend.dnrnews.loc, request: "GET /secure/assets/5e7e129f/css/bootstrap.css HTTP/1.1", upstream: "fastcgi://unix:/run/php/php-fpm.sock:", host: "backend.dnrnews.loc", referrer: "http://backend.dnrnews.loc/secure/user/login"
+2022/10/04 12:29:46 [error] 3986#3986: *253 directory index of "/var/www/dnrnews/backend/web/photo/" is forbidden, client: 127.0.0.1, server: backend.dnrnews.loc, request: "GET /photo/ HTTP/1.1", host: "backend.dnrnews.loc", referrer: "http://backend.dnrnews.loc/news/news/create"
