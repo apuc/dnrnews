@@ -12,14 +12,15 @@ use andrewdanilov\adminpanel\widgets\Menu;
 	<div class="sidebar-heading"><?= $siteName ?></div>
 	<?= Menu::widget(['items' => [
 		['label' => 'System'],
-        ['label' => 'News', 'url' => ['/news/news'], 'icon' => 'newspaper'],
+        ['label' => 'Новости', 'url' => ['/news/news'], 'icon' => 'newspaper'],
         [],
-        ['label' => 'Category', 'url' => ['/category/category'], 'icon' => 'list'],
-        ['label' => 'Tags', 'url' => ['/tag/tag'], 'icon' => 'comment'],
+        ['label' => 'Категории', 'url' => ['/category/category'], 'icon' => 'list'],
+        ['label' => 'Теги', 'url' => ['/tag/tag'], 'icon' => 'comment'],
         [],
-        ['label' => 'Comment', 'url' => ['/comment/comment'], 'icon' => 'comments'],
+        ['label' => 'Комментарии', 'url' => ['/comment/comment'], 'icon' => 'comments'],
         [],
-		['label' => 'Users', 'url' => ['/user/index'], 'icon' => 'users'],
+		['label' => 'Пользователи', 'url' => ['/user/index'], 'icon' => 'users'],
         ['label' => 'Типы событий', 'url' => ['/event_type/event-type'], 'icon' => 'calendar'],
+        ['label' => 'Места сражений', 'url' => ['/battle_place/battle-place/'], 'icon' => 'circle'],
 	]]) ?>
 </div>

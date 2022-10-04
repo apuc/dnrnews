@@ -27,11 +27,14 @@ return [
         'event_type' => [
             'class' => 'backend\modules\event_type\EventTypeModule',
         ],
+        'battle_place' => [
+            'class' => 'backend\modules\battle_place\BattlePlace',
+        ],
     ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
-            'baseUrl' => '/secure',
+            'baseUrl' => '', //  /secure
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
                 'text/xml' => 'yii/web/XmlParser',
