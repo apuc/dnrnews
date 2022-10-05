@@ -21,6 +21,8 @@ use andrewdanilov\adminpanel\widgets\Menu;
         [],
 		['label' => 'Пользователи', 'url' => ['/user/index'], 'icon' => 'users'],
         ['label' => 'Типы событий', 'url' => ['/event_type/event-type'], 'icon' => 'calendar'],
+        ['label' => 'Карта'],
         ['label' => 'Места сражений', 'url' => ['/battle_place/battle-place/'], 'icon' => 'circle'],
+        ['label' => 'Цвета', 'url' => ['/color/color/'], 'icon' => 'fa-sharp fa-solid fa-palette'],
 	]]) ?>
 </div>

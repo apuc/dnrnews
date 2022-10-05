@@ -30,6 +30,9 @@ return [
         'battle_place' => [
             'class' => 'backend\modules\battle_place\BattlePlace',
         ],
+        'color' => [
+            'class' => 'backend\modules\color\Color',
+        ],
     ],
     'components' => [
         'request' => [
