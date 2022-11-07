@@ -2,7 +2,6 @@
 
 namespace frontend\modules\api\models;
 
-use frontend\modules\api\models\EventType;
 use yii\db\ActiveQuery;
 use yii\helpers\Url;
 use yii\web\Linkable;
@@ -15,7 +14,7 @@ class News extends \common\models\News implements Linkable
             'id',
             'title',
             'published_date' => function () {
-                return $this->created_at;
+                return $this->published_date;
             },
             'views',
             'coordinates',

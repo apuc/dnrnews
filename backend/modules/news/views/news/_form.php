@@ -2,6 +2,7 @@
 
 use common\helpers\StatusHelper;
 use dosamigos\multiselect\MultiSelect;
+use kartik\datetime\DateTimePicker;
 use kartik\file\FileInput;
 use kartik\select2\Select2;
 use yii\helpers\Html;
@@ -51,6 +52,27 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?= $form->field($model, 'news_body')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'dateTime')->widget(DateTimePicker::className(), [
+        'name' => 'datetime',
+        'options' => ['placeholder' => 'Выберите дату...'],
+        'pickerIcon' => '<i class="fas fa-calendar-alt text-primary"></i>',
+        'removeIcon' => '<i class="fas fa-trash text-danger"></i>',
+        'pluginOptions' => [
+            'language' => 'ru',
+//            'minuteStep' => '60',
+//            'minView' => '2',
+//            'maxView' => '2',
+//'startView' => '3',
+            'format' => 'dd-M-yyyy HH:ii P', // формат который будет передаваться в базу
+            'autoclose' => true, //авто закрытие
+            'weekStart' => 1, //с какого дня начинается неделя
+            'startDate' => date('d'), //дата ниже которой нельзя установить значение
+            'todayBtn' => true, // выбрать сегодняшнюю дату
+            'todayHighlight' => true, // подсветка сегодняшнего дня
+        ],
+    ]);
+    ?>
 
     <?= $form->field($model, 'coordinates')->textInput(['maxlength' => true]) ?>
 

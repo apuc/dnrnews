@@ -66,6 +66,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     return UnixTimeConverter::convertUnixToDate($model->created_at);
                 }
             ],
+            [
+                'attribute' => 'published_date',
+                 'value' => function ($model) {
+                    return UnixTimeConverter::convertUnixToDate($model->published_date);
+                }
+            ]
         ],
     ]) ?>
 

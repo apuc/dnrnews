@@ -18,6 +18,7 @@ use yii\web\UploadedFile;
  * @property int $created_at
  * @property int $updated_at
  * @property int|null $views
+ * @property int $published_date
  *
  * @property CategoryNews[] $categoryNews
  * @property Comment[] $comments
@@ -59,8 +60,10 @@ class News extends ActiveRecord
             [['news_body'], 'string'],
             [['status', 'created_at', 'updated_at', 'views', 'event_type_id', 'is_map_event'], 'integer'],
             [['title', 'coordinates'], 'string', 'max' => 255],
-            [['image'], 'safe'],
             [['image'], 'file', 'extensions' => 'jpg, gif, png, webp, jpeg'],
+            ['published_date', 'integer'], //проверка
+            ['published_date', 'default', 'value' => time()], //значение по умолчанию
+            ['dateTime', 'date', 'format' => 'php:d.m.Y'], //формат модели с которой будем работать
         ];
     }
 
@@ -128,6 +131,8 @@ class News extends ActiveRecord
             'coordinates' => 'Координаты на карте',
             'event_type_id' => 'Тип события',
             'is_map_event' => 'Добавить на карту',
+            'published_date' => 'Дата публикации',
+            'dateTime' => 'Дата публикации',
         ];
     }
 
@@ -191,5 +196,15 @@ class News extends ActiveRecord
     public function getCommentsCount()
     {
         return $this->getComments()->count();
+    }
+
+    public function getDateTime()
+    {
+        return $this->published_date ? date('d.m.Y', $this->published_date) : '';
+    }
+
+    public function setDateTime($date)
+    {
+        $this->published_date = $date ? strtotime($date) : null;
     }
 }
