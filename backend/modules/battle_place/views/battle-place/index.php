@@ -30,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'bounds',
             'name',
-            'created_at',
-            'updated_at',
+            'start_date',
+            'end_date',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, BattlePlace $model, $key, $index, $column) {

@@ -18,6 +18,9 @@ class BattlePlace extends \common\models\BattlePlace
         return [
             'name',
             'bounds',
+            'scale',
+            'start_date',
+            'end_date'
         ];
     }
 

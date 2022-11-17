@@ -17,8 +17,8 @@ class BattlePlaceSearch extends BattlePlace
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['bounds', 'name', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'scale'], 'integer'],
+            [['bounds', 'name', 'created_at', 'updated_at', 'start_date', 'end_date'], 'safe'],
         ];
     }
 
@@ -61,6 +61,9 @@ class BattlePlaceSearch extends BattlePlace
             'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'scale' => $this->scale,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
         ]);
 
         $query->andFilterWhere(['like', 'bounds', $this->bounds])

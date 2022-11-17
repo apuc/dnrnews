@@ -13,6 +13,9 @@ use yii\db\Expression;
  * @property string|null $name
  * @property string|null $created_at
  * @property string|null $updated_at
+ * @property int|null $scale
+ * @property string|null $start_date
+ * @property string|null $end_date
  */
 class BattlePlace extends \yii\db\ActiveRecord
 {
@@ -42,7 +45,9 @@ class BattlePlace extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'updated_at'], 'safe'],
+            [['start_date', 'end_date', 'bounds', 'name', 'scale'], 'required'],
+            [['created_at', 'updated_at', 'start_date', 'end_date'], 'safe'],
+            [['scale'], 'integer'],
             [['bounds', 'name'], 'string', 'max' => 255],
         ];
     }
@@ -58,6 +63,9 @@ class BattlePlace extends \yii\db\ActiveRecord
             'name' => 'Название',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'scale' => 'Масштаб',
+            'start_date' => 'Дата начала',
+            'end_date' => 'Дата окончания',
         ];
     }
 }
