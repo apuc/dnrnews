@@ -23,15 +23,14 @@ class UserCommentDislikeController extends ApiController
                     HttpBearerAuth::class,
                 ],
             ],
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::class,
+                'actions' => [
+                    'comment-set-dislike' => ['POST'],
+                    'comment-delete-dislike' => ['DELETE']
+                ],
+            ]
         ]);
-    }
-
-    public function verbs(): array
-    {
-        return [
-            'comment-set-dislike' => ['POST'],
-            'comment-delete-dislike' => ['DELETE']
-        ];
     }
 
     /**

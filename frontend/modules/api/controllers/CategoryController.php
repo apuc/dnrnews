@@ -4,16 +4,22 @@ namespace frontend\modules\api\controllers;
 
 use common\services\ResponseService;
 use frontend\modules\api\models\Category;
+use yii\helpers\ArrayHelper;
 
 class CategoryController extends ApiController
 {
     public $modeClass = Category::class;
 
-    public function verbs(): array
+    public function behaviors(): array
     {
-        return [
-            'category' => ['GET'],
-        ];
+        return ArrayHelper::merge(parent::behaviors(), [
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::class,
+                'actions' => [
+                    'category' => ['GET'],
+                ],
+            ]
+        ]);
     }
 
     public function actionCategory($category_id = null): array

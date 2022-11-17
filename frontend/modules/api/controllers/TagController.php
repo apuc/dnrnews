@@ -5,16 +5,22 @@ namespace frontend\modules\api\controllers;
 use common\services\ResponseService;
 use frontend\modules\api\models\Tag;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 class TagController extends ApiController
 {
     public $modeClass = Tag::class;
 
-    public function verbs(): array
+    public function behaviors(): array
     {
-        return [
-            'tag' => ['GET'],
-        ];
+        return ArrayHelper::merge(parent::behaviors(), [
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::class,
+                'actions' => [
+                    'tag' => ['GET'],
+                ],
+            ]
+        ]);
     }
 
     public function actionTag($tag_id = null): array

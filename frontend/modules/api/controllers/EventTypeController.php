@@ -4,16 +4,22 @@ namespace frontend\modules\api\controllers;
 
 use common\services\ResponseService;
 use frontend\modules\api\models\EventType;
+use yii\helpers\ArrayHelper;
 
 class EventTypeController extends ApiController
 {
     public $modeClass = EventType::class;
 
-    public function verbs(): array
+    public function behaviors(): array
     {
-        return [
-            'tag' => ['GET'],
-        ];
+        return ArrayHelper::merge(parent::behaviors(), [
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::class,
+                'actions' => [
+                    'getEventTypes' => ['GET'],
+                ],
+            ]
+        ]);
     }
 
     public function actionGetEventTypes($event_type_id = null): array

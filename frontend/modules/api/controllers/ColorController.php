@@ -24,16 +24,15 @@ class ColorController extends ApiController
                 ],
                 'only' => ['set-color', 'set-colors'],
             ],
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::class,
+                'actions' => [
+                    'get-color' => ['GET'],
+                    'set-color' => ['POST'],
+                    'set-colors' => ['POST'],
+                ],
+            ]
         ]);
-    }
-
-    public function verbs(): array
-    {
-        return [
-            'get-color' => ['GET'],
-            'set-color' => ['POST'],
-            'set-colors' => ['POST'],
-        ];
     }
 
     public function actionSetColor(): array

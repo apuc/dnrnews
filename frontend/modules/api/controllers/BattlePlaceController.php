@@ -7,15 +7,21 @@ namespace frontend\modules\api\controllers;
 use common\services\ResponseService;
 use frontend\modules\api\models\BattlePlace;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 
 class BattlePlaceController extends ApiController
 {
-    public function verbs(): array
+    public function behaviors(): array
     {
-        return [
-            'get-bounds' => ['GET'],
-        ];
+        return ArrayHelper::merge(parent::behaviors(), [
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::class,
+                'actions' => [
+                    'get-bounds' => ['GET'],
+                ],
+            ]
+        ]);
     }
 
     public function actionGetBattlePlaces(): array

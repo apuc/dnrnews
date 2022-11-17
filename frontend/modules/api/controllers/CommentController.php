@@ -30,17 +30,16 @@ class CommentController extends ApiController
                 ],
                 'only' => ['create', 'delete'],
             ],
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::class,
+                'actions' => [
+                    'comment' => ['GET'],
+                    'news-comments' => ['GET'],
+                    'create' => ['POST'],
+                    'delete' => ['DELETE'], 'category' => ['GET'],
+                ],
+            ]
         ]);
-    }
-
-    public function verbs(): array
-    {
-        return [
-            'comment' => ['GET'],
-            'news-comments' => ['GET'],
-            'create' => ['POST'],
-            'delete' => ['DELETE'], 'category' => ['GET'],
-        ];
     }
 
     public function actionComment($comment_id): array

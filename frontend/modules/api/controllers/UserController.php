@@ -7,17 +7,23 @@ use frontend\modules\api\models\LoginForm;
 use frontend\modules\api\models\SignupForm;
 use frontend\modules\api\models\User;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 class UserController extends ApiController
 {
     public $modeClass = User::class;
 
-    public function verbs(): array
+    public function behaviors(): array
     {
-        return [
-            'login' => ['GET'],
-            'create' => ['POST'],
-        ];
+        return ArrayHelper::merge(parent::behaviors(), [
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::class,
+                'actions' => [
+                    'login' => ['GET'],
+                    'create' => ['POST'],
+                ],
+            ]
+        ]);
     }
 
     public function actionLogin($username, $password): array

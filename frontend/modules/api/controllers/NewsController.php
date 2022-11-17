@@ -4,7 +4,9 @@ namespace frontend\modules\api\controllers;
 
 use common\services\NewsService;
 use common\services\ResponseService;
+use frontend\modules\api\models\News;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 
 class NewsController extends ApiController
 {
@@ -15,14 +17,39 @@ class NewsController extends ApiController
 
     ];
 
-    public function verbs(): array
+    public function behaviors(): array
     {
-        return [
-            'news' => ['GET'],
-            'news-list' => ['GET'],
-            'find' => ['GET'],
-            'find-by-date' => ['GET'],
-        ];
+        return ArrayHelper::merge(parent::behaviors(), [
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::class,
+                'actions' => [
+                    'news' => ['GET'],
+                    'news-list' => ['GET'],
+                    'find' => ['GET'],
+                    'find-by-date' => ['GET'],
+                    'add-view' => ['PATCH'],
+                ],
+            ]
+        ]);
+    }
+
+    public function actionAddView(int $news_id): array
+    {
+        $news = News::findOne(['id' => $news_id]);
+
+        if ($news) {
+            NewsService::addView($news);
+            $response = ResponseService::successResponse(
+                'View added',
+                ['current_views' => $news->views]
+            );
+        } else {
+            $response = ResponseService::errorResponse(
+                'News not found!'
+            );
+        }
+
+        return $response;
     }
 
     public function actionNews($news_id): array

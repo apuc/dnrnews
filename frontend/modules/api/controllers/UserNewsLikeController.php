@@ -23,16 +23,15 @@ class UserNewsLikeController extends ApiController
                     HttpBearerAuth::class,
                 ],
             ],
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::class,
+                'actions' => [
+                    'set-like' => ['POST'],
+                    'delete-like' => ['DELETE'],
+                    'check-news-like' => ['GET'],
+                ],
+            ]
         ]);
-    }
-
-    public function verbs(): array
-    {
-        return [
-            'set-like' => ['POST'],
-            'delete-like' => ['DELETE'],
-            'check-news-like' => ['GET'],
-        ];
     }
 
     public function actionSetLike(): array

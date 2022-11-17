@@ -23,15 +23,14 @@ class UserCommentLikeController extends ApiController
                     HttpBearerAuth::class,
                 ],
             ],
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::class,
+                'actions' => [
+                    'comment-set-like' => ['POST'],
+                    'comment-delete-like' => ['DELETE']
+                ],
+            ]
         ]);
-    }
-
-    public function verbs(): array
-    {
-        return [
-            'comment-set-like' => ['POST'],
-            'comment-delete-like' => ['DELETE']
-        ];
     }
 
     /**

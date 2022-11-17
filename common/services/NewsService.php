@@ -98,7 +98,7 @@ class NewsService
     /**
      * @throws StaleObjectException
      */
-    private static function addView(News $news)
+    public static function addView(News $news)
     {
         $news->views = $news->views + 1;
         $news->update(false);
