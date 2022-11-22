@@ -3,9 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model backend\modules\news\models\NewsSearch */
-/* @var $form yii\widgets\ActiveForm */
+/** @var yii\web\View $this */
+/** @var backend\modules\news\models\NewsSearch $model */
+/** @var yii\widgets\ActiveForm $form */
 ?>
 
 <div class="news-search">
@@ -28,6 +28,18 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'created_at') ?>
 
     <?php // echo $form->field($model, 'updated_at') ?>
+
+    <?php // echo $form->field($model, 'views') ?>
+
+    <?php // echo $form->field($model, 'coordinates') ?>
+
+    <?php // echo $form->field($model, 'event_type_id') ?>
+
+    <?php // echo $form->field($model, 'is_map_event') ?>
+
+    <?php // echo $form->field($model, 'published_date') ?>
+
+    <?php // echo $form->field($model, 'battle_place_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -5,6 +5,7 @@ use backend\modules\tag\models\Tag;
 use common\helpers\StatusHelper;
 use common\helpers\UnixTimeConverter;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
@@ -22,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="news-view">
 
     <p>
-        <?= Html::a('Назад', ['index', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Список', ['index', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -71,7 +72,11 @@ $this->params['breadcrumbs'][] = $this->title;
                  'value' => function ($model) {
                     return UnixTimeConverter::convertUnixToDate($model->published_date);
                 }
-            ]
+            ],
+            [
+                'attribute' => 'battle_place_id',
+                'value' => ArrayHelper::getValue($model, 'battlePlace.name'),
+            ],
         ],
     ]) ?>
 

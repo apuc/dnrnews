@@ -1,5 +1,6 @@
 <?php
 
+use backend\modules\battle_place\models\BattlePlace;
 use common\helpers\StatusHelper;
 use common\helpers\UnixTimeConverter;
 use yii\grid\GridView;
@@ -49,6 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
                  'value' => function ($model) {
                     return UnixTimeConverter::convertUnixToDate($model->published_date);
                 }
+            ],
+            [
+                'attribute' => 'battle_place_id',
+                'filter' => BattlePlace::find()->select(['name', 'id'])->indexBy('id')->column(),
+                'value' => 'battlePlace.name'
             ],
             [
                 'class' => 'yii\grid\ActionColumn',

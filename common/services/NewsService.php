@@ -8,29 +8,34 @@ use yii\db\StaleObjectException;
 
 class NewsService
 {
-    public static function filter($category, $tags, $published, $from_date): ActiveQuery
+    public static function filter($category, $tags, $published, $from_date, $battle_place_name): ActiveQuery
     {
         $query = News::find()
             ->where(['news.status' => News::STATUS_ACTIVE])
             ->andWhere(['<=','news.published_date', time()])
             ->orderBy('created_at DESC');
 
-        if (!empty($category)) {
+        if ($category) {
             $query->joinWith(['categoryNews'])
                 ->andWhere(['category_news.category_id' => $category]);
         }
 
-        if (!empty($tags)) {
+        if ($tags) {
             $query->joinWith(['newsTag'])
                 ->andWhere(['news_tag.tag_id' => $tags]);
         }
 
-        if (!empty($published)) {
+        if ($published) {
             if (empty($from_date)) {
                 $query->andWhere(['like', 'news.created_at', $published]);
             } else {
                 $query->andWhere(['between', 'news.created_at', $from_date, $published]);
             }
+        }
+
+        if ($battle_place_name) {
+            $query->joinWith(['battlePlace'])
+                ->andWhere(['battle_place.name' => $battle_place_name]);
         }
 
         return $query;
@@ -60,7 +65,7 @@ class NewsService
         $query->distinct()
             ->joinWith(['category', 'tags']);
 
-        if (!empty($category_id)) {
+        if ($category_id) {
             $query->andFilterWhere(['=', 'category.id', $category_id[0]]);
             if (count($category_id) > 1) {
                 for ($i = 1; $i < count($category_id); ++$i) {
@@ -69,7 +74,7 @@ class NewsService
             }
         }
 
-        if (!empty($tags_id)) {
+        if ($tags_id) {
             $query->andFilterWhere(['=', 'tag.id', $tags_id[0]]);
             if (count($tags_id) > 1) {
                 for ($i = 1; $i < count($tags_id); ++$i) {

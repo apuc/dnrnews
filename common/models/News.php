@@ -19,7 +19,9 @@ use yii\web\UploadedFile;
  * @property int $updated_at
  * @property int|null $views
  * @property int $published_date
+ * @property int|null $battle_place_id
  *
+ * @property BattlePlace $battlePlace
  * @property CategoryNews[] $categoryNews
  * @property Comment[] $comments
  * @property NewsTag[] $newsTags
@@ -58,7 +60,7 @@ class News extends ActiveRecord
     {
         return [
             [['news_body'], 'string'],
-            [['status', 'created_at', 'updated_at', 'views', 'event_type_id', 'is_map_event'], 'integer'],
+            [['status', 'created_at', 'updated_at', 'views', 'event_type_id', 'is_map_event', 'battle_place_id'], 'integer'],
             [['title', 'coordinates'], 'string', 'max' => 255],
             [['image'], 'file', 'extensions' => 'jpg, gif, png, webp, jpeg'],
             ['published_date', 'integer'], //проверка
@@ -133,7 +135,18 @@ class News extends ActiveRecord
             'is_map_event' => 'Добавить на карту',
             'published_date' => 'Дата публикации',
             'dateTime' => 'Дата публикации',
+            'battle_place_id' => 'Место битвы'
         ];
+    }
+
+    /**
+     * Gets query for [[BattlePlace]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBattlePlace()
+    {
+        return $this->hasOne(BattlePlace::class, ['id' => 'battle_place_id']);
     }
 
     /**

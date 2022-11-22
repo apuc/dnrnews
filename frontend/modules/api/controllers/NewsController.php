@@ -85,11 +85,12 @@ class NewsController extends ApiController
         array $category = null,
         array $tags = null,
         int $published = null,
-        int $from_date = null
+        int $from_date = null,
+        string $battle_place_name = null
     ): ActiveDataProvider
     {
         return new ActiveDataProvider([
-            'query' => NewsService::filter($category, $tags, $published, $from_date),
+            'query' => NewsService::filter($category, $tags, $published, $from_date, $battle_place_name),
         ]);
     }
 }

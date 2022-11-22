@@ -1,10 +1,12 @@
 <?php
 
+use backend\modules\battle_place\models\BattlePlace;
 use common\helpers\StatusHelper;
 use dosamigos\multiselect\MultiSelect;
 use kartik\datetime\DateTimePicker;
 use kartik\file\FileInput;
 use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -86,6 +88,13 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?= $form->field($model, 'is_map_event')->checkbox() ?>
+
+    <?= $form->field($model, 'battle_place_id')->dropDownList(
+         ArrayHelper::map(BattlePlace::find()->all(), 'id', 'name'),
+        [
+            'prompt' => 'Выберите'
+        ]
+    ) ?>
 
     <?= $form->field($model, 'status')->dropDownList(
         StatusHelper::statusList(),

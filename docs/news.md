@@ -387,6 +387,14 @@
     </tr>
     <tr>
         <td>
+            battle_place_name
+        </td>
+        <td>
+            Название места битвы
+        </td>
+    </tr>
+    <tr>
+        <td>
             expand=tags, comments, comments_count, news_body, like, photo, category
         </td>
         <td>
@@ -409,37 +417,48 @@
 {
   "news": [
     {
-      "id": 82,
-      "title": "новость",
-      "published_date": 1651672474,
+      "id": 3,
+      "title": "",
+      "published_date": 1667779200,
       "views": 0,
+      "coordinates": "",
+      "event": null,
+      "is_map_event": 0,
       "_links": {
         "self": {
-          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=82"
+          "href": "http://dnrnews.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=3"
         }
       }
     },
     {
-      "id": 83,
-      "title": "новость",
-      "published_date": 1651672484,
-      "views": 0,
+      "id": 1,
+      "title": "dfkmvkldfmvdf",
+      "published_date": 1664928000,
+      "views": 9,
+      "coordinates": "",
+      "event": {
+        "id": 1,
+        "title": "Dot",
+        "icon": "/uploads/news-image/icon/aac1c97b2e75943882f72f85cbf3e9cc.png",
+        "status": 10
+      },
+      "is_map_event": 1,
       "_links": {
         "self": {
-          "href": "http://dnrone.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=83"
+          "href": "http://dnrnews.loc/api/news/news?expand=tags,comments,photo,news_body,like&news_id=1"
         }
       }
     }
   ],
   "_links": {
     "self": {
-      "href": "http://dnrone.loc/api/news/filter?published=1651672484&from_date=1651672384&page=1"
+      "href": "http://dnrnews.loc/api/news/filter?battle_place_name=%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D1%8C&page=1"
     },
     "first": {
-      "href": "http://dnrone.loc/api/news/filter?published=1651672484&from_date=1651672384&page=1"
+      "href": "http://dnrnews.loc/api/news/filter?battle_place_name=%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D1%8C&page=1"
     },
     "last": {
-      "href": "http://dnrone.loc/api/news/filter?published=1651672484&from_date=1651672384&page=1"
+      "href": "http://dnrnews.loc/api/news/filter?battle_place_name=%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D1%8C&page=1"
     }
   },
   "_meta": {
