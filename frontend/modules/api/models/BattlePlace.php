@@ -3,10 +3,10 @@
 namespace frontend\modules\api\models;
 
 /**
- * This is the model class for table "bounds".
  *
  * @property int $id
- * @property string|null $bounds
+ * @property string|null $upper_point
+ * @property string|null $lower_point
  * @property string|null $name
  * @property string|null $created_at
  * @property string|null $updated_at
@@ -17,11 +17,18 @@ class BattlePlace extends \common\models\BattlePlace
     {
         return [
             'name',
-            'bounds',
+            'bounds' => function () {
+                return $this->getCoordinate();
+            },
             'scale',
             'start_date',
             'end_date'
         ];
+    }
+
+    private function getCoordinate()
+    {
+        return "[[$this->lower_point], [$this->upper_point]]";
     }
 
     public function extraFields()

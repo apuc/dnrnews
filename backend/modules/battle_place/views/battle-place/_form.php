@@ -2,6 +2,7 @@
 
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
+use msvdev\widgets\mappicker\MapInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -16,7 +17,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'bounds')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'upper_point')->textarea(['rows' => 1]) ?>
+
+    <?= $form->field($model, 'lower_point')->textarea(['rows' => 1]) ?>
 
     <?= $form->field($model, 'scale')->widget(Select2::className(),
         [

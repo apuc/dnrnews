@@ -29,7 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'bounds',
+            'upper_point',
+            'lower_point',
             'scale',
             'start_date',
             'end_date',

@@ -9,7 +9,8 @@ use yii\db\Expression;
  * This is the model class for table "battle_place".
  *
  * @property int $id
- * @property string|null $bounds
+ * @property string|null $lower_point
+ * @property string|null $upper_point
  * @property string|null $name
  * @property string|null $created_at
  * @property string|null $updated_at
@@ -45,10 +46,10 @@ class BattlePlace extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['start_date', 'end_date', 'bounds', 'name', 'scale'], 'required'],
+            [['start_date', 'end_date', 'upper_point', 'lower_point', 'name', 'scale'], 'required'],
             [['created_at', 'updated_at', 'start_date', 'end_date'], 'safe'],
             [['scale'], 'integer'],
-            [['bounds', 'name'], 'string', 'max' => 255],
+            [['upper_point', 'lower_point', 'name'], 'string', 'max' => 255],
         ];
     }
 
@@ -59,7 +60,8 @@ class BattlePlace extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'bounds' => 'Границы',
+            'upper_point' => 'Верхняя точка',
+            'lower_point' => 'Нижняя точка',
             'name' => 'Название',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

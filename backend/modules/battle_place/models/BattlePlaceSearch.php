@@ -18,7 +18,7 @@ class BattlePlaceSearch extends BattlePlace
     {
         return [
             [['id', 'scale'], 'integer'],
-            [['bounds', 'name', 'created_at', 'updated_at', 'start_date', 'end_date'], 'safe'],
+            [['lower_point', 'upper_point', 'name', 'created_at', 'updated_at', 'start_date', 'end_date'], 'safe'],
         ];
     }
 
@@ -66,7 +66,8 @@ class BattlePlaceSearch extends BattlePlace
             'end_date' => $this->end_date,
         ]);
 
-        $query->andFilterWhere(['like', 'bounds', $this->bounds])
+        $query->andFilterWhere(['like', 'upper_point', $this->lower_point])
+            ->andFilterWhere(['like', 'lower_point', $this->upper_point])
             ->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;

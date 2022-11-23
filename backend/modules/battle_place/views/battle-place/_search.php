@@ -17,7 +17,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'bounds') ?>
+    <?= $form->field($model, 'upper_point') ?>
+
+    <?= $form->field($model, 'lower_point') ?>
 
     <?= $form->field($model, 'name') ?>
 
