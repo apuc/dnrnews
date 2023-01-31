@@ -17,9 +17,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+
     <?= $form->field($model, 'upper_point')->textarea(['rows' => 1]) ?>
 
     <?= $form->field($model, 'lower_point')->textarea(['rows' => 1]) ?>
+
+    <p>Пример формата точки: 48.121012394914274,37.706623077392585</p>
 
     <?= $form->field($model, 'scale')->widget(Select2::className(),
         [
@@ -27,7 +30,7 @@ use yii\widgets\ActiveForm;
             'options' => ['placeholder' => 'Выберите масштаб','class' => 'form-control'],
             'pluginOptions' => [
                 'allowClear' => false,
-                'closeOnSelect' => false
+                'closeOnSelect' => true
             ],
         ]) ?>
 

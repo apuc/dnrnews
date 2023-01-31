@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 
@@ -50,6 +51,11 @@ class BattlePlace extends \yii\db\ActiveRecord
             [['created_at', 'updated_at', 'start_date', 'end_date'], 'safe'],
             [['scale'], 'integer'],
             [['upper_point', 'lower_point', 'name'], 'string', 'max' => 255],
+            [['upper_point', 'lower_point'], function ($attribute) {
+                if (!preg_match('/\d{2}\.\d+,\d{2}\.\d+/m', $this->getAttribute($attribute))) {
+                    $this->addError($attribute,'You entered an invalid dot format.');
+                }
+            }, 'skipOnError' => true],
         ];
     }
 
