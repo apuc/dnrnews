@@ -16,6 +16,7 @@ class BattlePlace extends \common\models\BattlePlace
     public function fields()
     {
         return [
+            'id',
             'name',
             'bounds' => function () {
                 return $this->getCoordinate();

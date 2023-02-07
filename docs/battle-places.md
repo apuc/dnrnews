@@ -42,6 +42,7 @@
   "message": "List of battle places",
   "data": [
     {
+      "id": 2,
       "name": "Мариуполь",
       "bounds": "[[47.068955, 37.366551], [47.221192, 37.743027]]",
       "scale": null,
@@ -49,6 +50,7 @@
       "end_date": null
     },
     {
+      "id": 3, 
       "name": "ddfcds",
       "bounds": "fvdfv",
       "scale": 20,

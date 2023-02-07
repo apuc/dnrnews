@@ -14,7 +14,6 @@ class NewsController extends ApiController
     public $serializer = [
         'class' => 'yii\rest\Serializer',
         'collectionEnvelope' => 'news',
-
     ];
 
     public function behaviors(): array
@@ -67,10 +66,10 @@ class NewsController extends ApiController
         return $response;
     }
 
-    public function actionNewsList(array $category_id = null, array $tags_id = null): ActiveDataProvider
+    public function actionNewsList(array $category_id = null, array $tags_id = null, $place_id = null): ActiveDataProvider
     {
         return new ActiveDataProvider([
-            'query' => NewsService::getNewsList($category_id, $tags_id),
+            'query' => NewsService::getNewsList($category_id, $tags_id, $place_id),
         ]);
     }
 

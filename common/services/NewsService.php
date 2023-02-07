@@ -56,7 +56,7 @@ class NewsService
         return $query;
     }
 
-    public static function getNewsList(array $category_id = null, array $tags_id = null): ActiveQuery
+    public static function getNewsList(array $category_id = null, array $tags_id = null, $place_id = null): ActiveQuery
     {
         $query = News::find()
             ->where(['news.status' => News::STATUS_ACTIVE])
@@ -81,6 +81,10 @@ class NewsService
                     $query->orFilterWhere(['=', 'tag.id', $tags_id[$i]]);
                 }
             }
+        }
+
+        if ($place_id) {
+            $query->andWhere(['battle_place_id' => $place_id]);
         }
 
         return $query;

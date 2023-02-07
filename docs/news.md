@@ -190,12 +190,20 @@
             тело новости; лайки; ссылку на фото новости
         </td>
     </tr>
+    <tr>
+        <td>
+            place_id
+        </td>
+        <td>
+            ID места сражения
+        </td>
+    </tr>
 </table>
 <p>
     Пример запроса:
 </p>
 
-`http://dnrone.loc/api/news/news-list?category_id=1&tags_id[0]=5&tags_id[1]=5&tags_id[2]=3`
+`http://dnrone.loc/api/news/news-list?category_id=1&tags_id[0]=5&tags_id[1]=5&tags_id[2]=3?place_id=2`
 
 <p>
     Пример возвращаемых данных
