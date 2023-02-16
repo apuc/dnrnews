@@ -13,7 +13,7 @@ class NewsService
         $query = News::find()
             ->where(['news.status' => News::STATUS_ACTIVE])
             ->andWhere(['<=','news.published_date', time()])
-            ->orderBy('created_at DESC');
+            ->orderBy('published_date DESC');
 
         if ($category) {
             $query->joinWith(['categoryNews'])
@@ -44,7 +44,7 @@ class NewsService
     public static function findNews($text): ActiveQuery
     {
         $query = News::find()
-            ->orderBy('created_at DESC')
+            ->orderBy('published_date DESC')
             ->andWhere(['<=','published_date', time()]);
 
         if (!empty($text)) {
@@ -59,6 +59,7 @@ class NewsService
     public static function getNewsList(array $category_id = null, array $tags_id = null, $place_id = null): ActiveQuery
     {
         $query = News::find()
+            ->orderBy('published_date DESC')
             ->where(['news.status' => News::STATUS_ACTIVE])
             ->andWhere(['<=','news.published_date', time()]);
 
