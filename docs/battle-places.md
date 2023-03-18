@@ -47,7 +47,9 @@
       "bounds": "[[47.068955, 37.366551], [47.221192, 37.743027]]",
       "scale": null,
       "start_date": null,
-      "end_date": null
+      "end_date": null,
+      "photo": "/uploads/battle_place_photo/4af7655acd864975915885ed2a4fa5b9.jpg",
+      "description": "test"
     },
     {
       "id": 3, 
@@ -55,7 +57,9 @@
       "bounds": "fvdfv",
       "scale": 20,
       "start_date": "2022-11-30 00:00:00",
-      "end_date": "2022-12-01 00:00:00"
+      "end_date": "2022-12-01 00:00:00",
+      "photo": "N/A",
+      "description": "test"
     }
   ]
 }

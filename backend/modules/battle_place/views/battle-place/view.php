@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var backend\modules\battle_place\models\BattlePlace $model */
@@ -37,6 +38,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'created_at',
             'updated_at',
+            [
+                'attribute' => 'logo',
+                'format' => 'html',
+                'label' => 'photo',
+                'value' => function ($data) {
+                    return Html::img(Url::base() . '/battle_place_photo/' . $data->photo,
+                        ['width' => '80px',
+                            'height' => '80px']);
+                },
+            ],
+            'description'
         ],
     ]); ?>
 

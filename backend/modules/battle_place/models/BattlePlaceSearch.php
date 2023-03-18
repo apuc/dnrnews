@@ -18,7 +18,7 @@ class BattlePlaceSearch extends BattlePlace
     {
         return [
             [['id', 'scale'], 'integer'],
-            [['lower_point', 'upper_point', 'name', 'created_at', 'updated_at', 'start_date', 'end_date'], 'safe'],
+            [['lower_point', 'name', 'created_at', 'updated_at', 'start_date', 'end_date', 'upper_point', 'photo', 'description'], 'safe'],
         ];
     }
 
@@ -66,9 +66,11 @@ class BattlePlaceSearch extends BattlePlace
             'end_date' => $this->end_date,
         ]);
 
-        $query->andFilterWhere(['like', 'upper_point', $this->lower_point])
-            ->andFilterWhere(['like', 'lower_point', $this->upper_point])
-            ->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'lower_point', $this->lower_point])
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'upper_point', $this->upper_point])
+            ->andFilterWhere(['like', 'photo', $this->photo])
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

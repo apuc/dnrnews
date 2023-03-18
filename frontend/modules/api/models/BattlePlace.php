@@ -23,8 +23,20 @@ class BattlePlace extends \common\models\BattlePlace
             },
             'scale',
             'start_date',
-            'end_date'
+            'end_date',
+            'photo' => function () {
+                return $this->getPhotoLink();
+            },
+            'description'
         ];
+    }
+
+    public function getPhotoLink()
+    {
+        if (empty($this->photo)) {
+            return 'N/A';
+        }
+        return '/uploads/battle_place_photo/' . $this->photo;
     }
 
     private function getCoordinate()

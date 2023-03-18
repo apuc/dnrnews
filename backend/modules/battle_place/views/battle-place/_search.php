@@ -17,8 +17,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'upper_point') ?>
-
     <?= $form->field($model, 'lower_point') ?>
 
     <?= $form->field($model, 'name') ?>
@@ -26,6 +24,18 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'created_at') ?>
 
     <?= $form->field($model, 'updated_at') ?>
+
+    <?php // echo $form->field($model, 'scale') ?>
+
+    <?php // echo $form->field($model, 'start_date') ?>
+
+    <?php // echo $form->field($model, 'end_date') ?>
+
+    <?php // echo $form->field($model, 'upper_point') ?>
+
+    <?php // echo $form->field($model, 'photo') ?>
+
+    <?php // echo $form->field($model, 'description') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -1,9 +1,10 @@
 <?php
 
 use kartik\date\DatePicker;
+use kartik\file\FileInput;
 use kartik\select2\Select2;
-use msvdev\widgets\mappicker\MapInput;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
@@ -51,6 +52,25 @@ use yii\widgets\ActiveForm;
         ]
     ]);
     ?>
+
+    <?= $form->field($model, 'image')->widget(FileInput::classname(), [
+        'pluginOptions' => [
+            'showCaption' => false,
+            'showRemove' => false,
+            'showUpload' => false,
+            'browseClass' => 'btn btn-primary btn-block',
+            'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
+            'browseLabel' => 'Select Photo',
+            'initialPreview' => Html::img(
+                Url::base() . '/battle_place_photo/' . $model->photo,
+                [
+                    'width' => "100%", 'height' => "100%"
+                ]),
+            'overwriteInitial' => true
+        ],
+    ]); ?>
+
+    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

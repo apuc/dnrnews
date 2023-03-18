@@ -34,6 +34,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'start_date',
             'end_date',
             [
+                'attribute' => 'photo',
+                'format' => 'html',
+                'value' => function ($data) {
+                    return Html::img(Url::base() . '/battle_place_photo/' . $data->photo,
+                        ['width' => '80px',
+                            'height' => '80px']);
+                },
+                'contentOptions' => ['style'=>'text-align:center'],
+            ],
+            'description',
+            [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, BattlePlace $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
