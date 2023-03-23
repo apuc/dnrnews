@@ -59,6 +59,7 @@ class News extends ActiveRecord
     public function rules()
     {
         return [
+            [['news_body', 'title'], 'required'],
             [['news_body'], 'string'],
             [['status', 'created_at', 'updated_at', 'views', 'event_type_id', 'is_map_event', 'battle_place_id'], 'integer'],
             [['title', 'coordinates'], 'string', 'max' => 255],
@@ -66,6 +67,11 @@ class News extends ActiveRecord
             ['published_date', 'integer'], //проверка
             ['published_date', 'default', 'value' => time()], //значение по умолчанию
             ['dateTime', 'date', 'format' => 'php:d.m.Y'], //формат модели с которой будем работать
+            [['coordinates'], function ($attribute) {
+                if (!preg_match('/\d{2}\.\d+,\d{2}\.\d+/m', $this->getAttribute($attribute))) {
+                    $this->addError($attribute,'You entered an invalid dot format.');
+                }
+            }, 'skipOnError' => true],
         ];
     }
 

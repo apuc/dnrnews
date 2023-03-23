@@ -91,32 +91,19 @@ class BattlePlaceController extends Controller
      */
     public function actionUpdate($id)
     {
-//        $model = $this->findModel($id);
-//
-//        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-//            return $this->redirect(['view', 'id' => $model->id]);
-//        }
-//
-//        return $this->render('update', [
-//            'model' => $model,
-//        ]);
-
         $model = $this->findModel($id);
         $model->load(Yii::$app->request->post());
 
         if(Yii::$app->request->isPost){
-            //Try to get file info
             $upload_image = \yii\web\UploadedFile::getInstance($model, 'image');
 
-            //If received, then I get the file name and asign it to $model->image in order to store it in db
             if(!empty($upload_image)){
                 $model->image = $upload_image;
                 $model->photo = $upload_image->name;
 
             }
 
-            //I proceed to validate model. Notice that will validate that 'image' is required and also 'image_upload' as file, but this last is optional
-            if ($model->validate() && $model->save()) {
+           if ($model->validate() && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }
